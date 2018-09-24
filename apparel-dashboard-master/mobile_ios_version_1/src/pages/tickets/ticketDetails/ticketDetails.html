@@ -1,0 +1,152 @@
+<ion-header>
+    <ion-navbar class="header">
+        <button ion-button menuToggle>
+            <ion-icon class="menu-icon" name="menu"></ion-icon>
+        </button>
+        <div class="logo-container">
+            <span class="header-title">STAHLS</span>
+            <!-- <ion-icon class="noti-icon" name="notifications"></ion-icon> -->
+        </div>
+    </ion-navbar>
+</ion-header>
+<ion-content>
+    <ion-grid>
+        <ion-row padding>
+            <ion-col>
+                <div>
+                    <h5>Ticket ID</h5>
+                </div>
+                <div>
+                    <h3>{{ticket?.id}}</h3>
+                </div>
+            </ion-col>
+            <ion-col end>
+                <button ion-button float-right>{{ticket?.Status}}</button>
+            </ion-col>
+        </ion-row>
+        <!-- <ion-row padding>
+            <button ion-button float-left ion-start>
+                <ion-icon name="download"></ion-icon>&nbsp; Download attachments
+            </button>
+        </ion-row> -->
+        <ion-row class="createdByRow" padding>
+            Created by: &nbsp;
+            <span>
+                <h5>{{ticket?.created_by.username}}</h5>
+            </span>
+        </ion-row>
+        <ion-row class="assignedToRow" padding>
+            Assigned to: &nbsp;
+            <span *ngFor="let assignedname of ticket?.assigned_to">
+                <h5>{{assignedname.firstname}}&nbsp;&nbsp;</h5>
+            </span>
+        </ion-row>
+        <ion-row padding>
+            Created Date: &nbsp;
+            <span>
+                <h5>{{ticket?.Date | date:'MM/dd/yyyy'}} </h5>&nbsp;
+            </span>&nbsp;&nbsp;
+            Priority: &nbsp;
+            <span *ngIf="ticket?.Type === 'Urgent'" style="color:red">
+                <strong>{{ticket?.Type}}</strong>
+            </span>
+            <span *ngIf="ticket?.Type === 'Regular'" style="color:green">
+                <strong>{{ticket?.Type}}</strong>
+            </span>
+        </ion-row>
+        <div *ngIf="organizationname === 'Stahls'">
+            <span>
+                <ion-item>
+                    Organization:
+                </ion-item>
+                <ion-item>
+                    <ion-label>Organization</ion-label>
+                    <ion-select [(ngModel)]='Organization' multiple="true">
+                        <ion-option *ngFor="let Organization of allOrganization" (ionSelect)=filterOrg(Organization)
+                            [value]="Organization">{{Organization.organizationname}}</ion-option>
+                    </ion-select>
+                </ion-item>
+            </span>
+        </div>
+        <div *ngIf="organizationname !== 'Stahls'">
+            <span>
+                <ion-item>
+                    Organization:
+                </ion-item>
+                <ion-item>
+                    <ion-label>Organization</ion-label>
+                    <ion-select [(ngModel)]='Organization' multiple="true">
+                        <ion-option *ngFor="let Organization of myOrganization" (ionSelect)=filterOrg(Organization)
+                            [value]="Organization">{{Organization.organizationname}}</ion-option>
+                    </ion-select>
+                </ion-item>
+            </span>
+        </div>
+
+        <div *ngIf="organizationname === 'Stahls'">
+            <span>
+                <ion-item>
+                    Assign Ticket to:
+                </ion-item>
+                <ion-item>
+                    <ion-label>Assign Ticket to</ion-label>
+                    <ion-select [(ngModel)]='User' multiple="true">
+                        <ion-option *ngFor="let User of userToDisplay" [value]="User">{{User.firstname}}
+                            {{User.lastname}}</ion-option>
+                    </ion-select>
+                </ion-item>
+            </span>
+        </div>
+        <div *ngIf="organizationname !== 'Stahls'">
+            <span>
+                <ion-item>
+                    Assign Ticket to:
+                </ion-item>
+                <ion-item>
+                    <ion-label>Assign Ticket to</ion-label>
+                    <ion-select [(ngModel)]='User' multiple="true">
+                        <ion-option *ngFor="let User of userToDisplay" [value]="User">{{User.firstname}}
+                            {{User.lastname}}</ion-option>
+                    </ion-select>
+                </ion-item>
+            </span>
+        </div>
+
+        <ion-item class="buttonRow">
+            <button *ngIf="organizationname === 'Stahls' && User.length !== 0 && Organization.length !== 0" ion-button full (click)=saveAssignedUserTicket()>Assign</button>
+            <button *ngIf="organizationname !== 'Stahls' && User.length !== 0 && Organization.length !== 0" ion-button full (click)=saveAssignedUserTicket()>Assign</button>
+        </ion-item>
+        <ion-item-divider></ion-item-divider>
+        <ion-row padding class="descriptionRow">
+            <span>
+                <strong>Description: </strong>{{ticket?.description}}</span>
+        </ion-row>
+        <ion-item-divider></ion-item-divider>
+        <ion-row padding>
+            <ion-card class="infoCard">
+                <ion-card-content>
+                    <div>this is the information</div>
+                    <div>by: {{ticket?.created_by.username}} - {{ticket?.Date | date:'MM/dd/yyyy'}}</div>
+                </ion-card-content>
+            </ion-card>
+        </ion-row>
+        <ion-row padding>
+            <div>
+                <h4 class="orderText">Orders associated to this ticket</h4>
+                <ion-item>
+                    <ion-badge item-start color="secondary" *ngFor="let order of ticket?.salesorder">{{order?.OrderNumber}}</ion-badge>
+                </ion-item>
+            </div>
+        </ion-row>
+        <!-- <ion-row padding class="buttonRow">
+            <button class="sendButton" ion-button full>Send message</button>
+        </ion-row> -->
+        <ion-row padding class="buttonRow">
+            <button class="closeButton" ion-button full (click)="closeTicket()">close Ticket</button>
+        </ion-row>
+        <ion-row padding class="buttonRow">
+            <button *ngIf="ticket?.Status === 'Closed'" class="reopenButton" (click)=ReopenTicket() ion-button full>Reopen
+                Ticket</button>
+        </ion-row>
+    </ion-grid>
+</ion-content>

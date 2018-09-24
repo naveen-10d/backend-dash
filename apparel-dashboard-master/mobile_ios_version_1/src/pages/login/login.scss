@@ -1,0 +1,52 @@
+  .loginCard {
+      padding: 15px 30px;
+      text-align: center;
+      background-color: mediumblue;
+      box-shadow: none !important;
+  }
+
+  page-login {
+      .card-md {
+          margin-top: -10%;
+      }
+      .card-ios {
+          margin-top: -10%;
+      }
+      .scroll-content {
+          background: #F1F3F5;
+          background-color: #2955cd;
+          padding-bottom: 16px !important;
+      }
+      .login-logo {
+          height: 80px;
+          width: 80px;
+          display: initial;
+      }
+      .button-inner {
+          text-transform: none;
+      }
+      .login-label {
+          margin: 0px;
+          font-size: 20px;
+          font-weight: bold;
+      }
+      .login-input {
+          input {
+              padding: 5px;
+              background: #0066cc;
+              box-shadow: inset 2px 2px 2px #0066cc;
+              font-size: 18px;
+              font-family: Open Sans;
+              color: white;
+              text-align: center;
+          }
+      }
+      .login-button {
+          background: #CC6600;
+          font-size: 18px;
+          font-family: Open Sans;
+          color: #fff;
+          height: 35px;
+          width: 130px;
+      }
+  }

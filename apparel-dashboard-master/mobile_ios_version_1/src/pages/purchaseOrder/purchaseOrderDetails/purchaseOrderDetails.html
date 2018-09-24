@@ -1,0 +1,183 @@
+<ion-header>
+    <ion-navbar class="header">
+        <button ion-button menuToggle>
+            <ion-icon class="menu-icon" name="menu"></ion-icon>
+        </button>
+        <div class="logo-container">
+            <span class="header-title">STAHLS</span>
+            <!-- <ion-icon class="noti-icon" name="notifications"></ion-icon> -->
+        </div>
+    </ion-navbar>
+</ion-header>
+
+
+<ion-content>
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull to refresh" refreshingSpinner="circles"
+            refreshingText="Refreshing...">
+        </ion-refresher-content>
+    </ion-refresher>
+    <ion-card>
+        <ion-card-content class="">
+            <span class="orderid">{{orderDetails.uuid}}</span>
+            <ion-badge item-end>{{orderDetails.VendorPO?.StatusName}}</ion-badge>
+            <div class="details-box">
+                <span>Location: {{orderDetails.CompanyCode}}</span>
+                <br />
+                <span>Date: {{orderDetails.VendorPO?.FinishDate | date: 'MM/dd/yyyy'}}</span>
+                <br />
+                <span>Forcasted Arrival:{{orderDetails.SalesOrder?.ForecastFinish | date: 'MM/dd/yyyy'}}</span>
+                <br />
+                <!-- <span>Arrival Date: {{orderDetails.arrivalDate | date: 'MM/dd/yyyy' }}</span> -->
+            </div>
+            <!-- <ion-item>
+                Tracking Info
+            </ion-item> -->
+        </ion-card-content>
+    </ion-card>
+    <ion-item class="title-divider">
+        Customer
+    </ion-item>
+    <ion-card>
+        <ion-card-content class="">
+            <div class="details-box">
+                <span>ID: {{orderDetails?.CompanyID}}</span>
+                <br />
+                <span>Name: {{orderDetails?.CompanyCode}}</span>
+            </div>
+            <!-- <ion-item>
+                    Tracking Info
+                </ion-item> -->
+        </ion-card-content>
+    </ion-card>
+    <ion-item class="title-divider">
+        Items included in this PO
+    </ion-item>
+    <ion-item class="qty-header">
+        <span style="margin-left: 15px;">Pending Items</span>
+        <!-- <a class="sort-filter" (click)="filterOrder()"> Sort/Filter by</a> -->
+    </ion-item>
+    <ion-item *ngFor="let item of purchaseorderdetail" class="qty-details">
+        <ion-grid>
+            <ion-row>
+                <ion-col col-2 style="font-size: 20px;">
+                    {{item.QuantityOrdered - item.ItemQuantity}}
+                </ion-col>
+                <ion-col col-2>
+                    Vendor Style: {{item.StyleNumber}}
+                    <br /> Item: {{item.ReceiveItemID}}
+                    <br />Vendor Description: {{item.Season}}
+                    <br />Color: {{item.StyleColor}}
+                    <br />Size: {{item.StyleOption}}
+                    <br />Ordered: {{item.QuantityOrdered}}
+                    <br />Received: {{item.ItemQuantity}}
+                    <br />Date: {{orderDetails.SalesOrder?.RequiredDate | date:'MM/dd/yyyy'}}
+                    <!-- <ion-badge *ngIf="expandindex == null || expandindex != 1" class="details-badge" item-end (click)="showDetails(1)">See more</ion-badge>
+                    <ion-badge *ngIf="expandindex == 1" class="details-badge" item-end (click)="hideDetails()">Hide details</ion-badge>
+                    <br/> Color: TNV
+                    <br/> Price: In progress
+                    <br/> Shipping Method: UPS 2 days
+                    <br/> Artwork Status: Waiting for approval -->
+                </ion-col>
+            </ion-row>
+            <!-- <ion-row *ngIf="expandindex == 1">
+                Color: TNV
+                <br/> Price: In progress
+                <br/> Shipping Method: UPS 2 days
+                <br/> Artwork Status: Waiting for approval
+            </ion-row> -->
+        </ion-grid>
+    </ion-item>
+
+    <!-- <ion-item class="qty-details">
+        <ion-grid>
+            <ion-row>
+                <ion-col col-2 style="font-size: 65px;">
+                    3
+                </ion-col>
+                <ion-col col-10>
+                    Style: TMWK770
+                    <ion-badge *ngIf="expandindex == null || expandindex != 2" class="details-badge" item-end (click)="showDetails(2)">See more</ion-badge>
+                    <ion-badge *ngIf="expandindex == 2" class="details-badge" item-end (click)="hideDetails()">Hide details</ion-badge>
+                    <br/> Color: TNV
+                    <br/> Price: In progress
+                    <br/> Shipping Method: UPS 2 days
+                    <br/> Artwork Status: Waiting for approval
+                </ion-col>
+            </ion-row>
+            <ion-row *ngIf="expandindex == 2">
+                    Color: TNV
+                    <br/> Price: In progress
+                    <br/> Shipping Method: UPS 2 days
+                    <br/> Artwork Status: Waiting for approval
+                </ion-row>
+        </ion-grid>
+    </ion-item>
+
+    <ion-item class="qty-details">
+        <ion-grid>
+            <ion-row>
+                <ion-col col-2 style="font-size: 65px;">
+                    3
+                </ion-col>
+                <ion-col col-10>
+                    Style: TMWK770
+                    <ion-badge *ngIf="expandindex == null || expandindex != 3" class="details-badge" item-end (click)="showDetails(3)">See more</ion-badge>
+                    <ion-badge *ngIf="expandindex == 3" class="details-badge" item-end (click)="hideDetails()">Hide details</ion-badge>
+                    <br/> Color: TNV
+                    <br/> Price: In progress
+                    <br/> Shipping Method: UPS 2 days
+                    <br/> Artwork Status: Waiting for approval
+                </ion-col>
+            </ion-row>
+            <ion-row *ngIf="expandindex == 3">
+                    Color: TNV
+                    <br/> Price: In progress
+                    <br/> Shipping Method: UPS 2 days
+                    <br/> Artwork Status: Waiting for approval
+                </ion-row>
+        </ion-grid>
+    </ion-item>
+
+    <ion-item class="qty-details">
+        <ion-grid>
+            <ion-row>
+                <ion-col col-2 style="font-size: 65px;">
+                    3
+                </ion-col>
+                <ion-col col-10>
+                    Style: TMWK770
+                    <ion-badge *ngIf="expandindex == null || expandindex != 4" class="details-badge" item-end (click)="showDetails(4)">See more</ion-badge>
+                    <ion-badge *ngIf="expandindex == 4" class="details-badge" item-end (click)="hideDetails()">Hide details</ion-badge>
+                    <br/> Color: TNV
+                    <br/> Price: In progress
+                    <br/> Shipping Method: UPS 2 days
+                    <br/> Artwork Status: Waiting for approval
+                </ion-col>
+            </ion-row>
+            <ion-row *ngIf="expandindex == 4">
+                Color: TNV
+                <br/> Price: In progress
+                <br/> Shipping Method: UPS 2 days
+                <br/> Artwork Status: Waiting for approval
+            </ion-row>
+        </ion-grid>
+    </ion-item> -->
+    <ion-item class="title-divider">
+        Tickets associated with this PO:&nbsp;{{orderDetails?.SalesOrder?.Tickets}}
+    </ion-item>
+    <ion-item>
+        <!-- <button class="delayed">
+            <span> 04/04/2018 / Solved - Jhon Doe</span>
+        </button>
+        <br/>
+        <br/>
+        <button class="pending">
+            <span>04/04/2018 / Inprogress - Jhon Do</span>
+        </button> -->
+        <!-- <br />
+        <br /> -->
+
+        <button ion-button class="btn-filter" (click)="gotoNewTicket()" outline>New Ticket</button>
+    </ion-item>
+</ion-content>

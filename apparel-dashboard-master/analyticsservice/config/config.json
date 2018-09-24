@@ -1,0 +1,24 @@
+{
+    "development": {
+        "host": "stahlsdbserver.database.windows.net",
+        "port": "1433",
+        "username": "stahlsadmin",
+        "password": "T@ng3456!.",
+        "dialect": "mssql",
+        "name": "StahlsDevelopment",
+        "dialectOptions": {
+            "encrypt": true
+        }
+    },
+    "production": {
+        "host": "stahlsnonproduction.database.windows.net",
+        "port": "1433",
+        "username": "stahlsadmin",
+        "password": "T@ng3456!.",
+        "dialect": "mssql",
+        "name": "StahlsTest",
+        "dialectOptions": {
+            "encrypt": true
+        }
+    }
+}

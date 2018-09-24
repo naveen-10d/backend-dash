@@ -1,0 +1,32 @@
+.orderTicketText {
+    font-size: 20px;
+    font-weight: bolder;
+  }
+
+  .button{
+    left:84%;
+    padding: 1%;
+}
+
+  .form-txt{
+   margin-left: 12%
+  }
+
+  mat-slider {
+    width: 300px;
+    max-height: 500px;
+
+  }
+  .mat-table {
+    width: 100%;
+  }
+  .table{
+    margin-right: 108px;
+    margin-left: -58px;
+    margin-top: 27px;
+    margin-bottom: 78px
+  }
+.header{
+  margin-top: 10px;
+  margin-left: -50px;
+}

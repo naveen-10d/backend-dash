@@ -1,0 +1,51 @@
+<ion-header>
+    <ion-navbar class="header">
+        <button ion-button menuToggle>
+            <ion-icon class="menu-icon" name="menu"></ion-icon>
+        </button>
+        <div class="logo-container">
+            <!-- <img height="40" class="nav-logo" src="assets/imgs/stahls.png"> -->
+            <span class="header-title">STAHLS</span>
+            <!-- <button ion-button> -->
+            <!-- <ion-icon class="noti-icon" name="notifications"></ion-icon> -->
+            <!-- </button>   -->
+        </div>
+    </ion-navbar>
+</ion-header>
+<ng4-loading-spinner>
+</ng4-loading-spinner>
+
+<ion-content class="page-con">
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull to refresh" refreshingSpinner="circles" refreshingText="Refreshing...">
+        </ion-refresher-content>
+    </ion-refresher>
+    <span class="dash-title">Packed Box Summary
+        <br/>
+    </span>
+    <div class="searchbar-top">
+        <ion-searchbar [(ngModel)]="searchTerm" type="search" (ionInput)="setFilteredItems()"></ion-searchbar>
+    </div>
+    <ion-list>
+        <ion-item *ngFor='let packedbox of packedboxdetail'>
+            <ion-card (click)=displaypackeditems(packedbox)>
+                <ion-card-content class="dashCard">
+                    <ion-card-title>
+                        <h3>
+                            <b>{{packedbox.PackedBoxID}}</b>
+                        </h3>
+                    </ion-card-title>
+                    <ion-list>
+                        <span>BoxCode: {{packedbox.BoxCode}}</span>
+                        <br/>
+                        <span>BoxNumber: {{packedbox.BoxNumber}} </span>
+                        <!-- <br/>
+                        <span>ShipmentID: {{packedbox.ShipmentID}}</span> -->
+                        <br/>
+                        <span>Quantity: {{packedbox.PackedUnits}}</span>
+                    </ion-list>
+                </ion-card-content>
+            </ion-card>
+        </ion-item>
+    </ion-list>
+</ion-content>

@@ -1,0 +1,74 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Ticket Details</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <ion-card class="accordion">
+    <ion-card-content style="background: blue" id="first">
+      <ion-badge style="float: right" color="danger">{{ticketDetails.status}}</ion-badge>
+      <p style="font-size: 22px; color: white;">{{ticketDetails.subject}}</p>
+    </ion-card-content>
+    <ion-card-content id="first">
+      <ion-item-divider text-wrap>
+        <ion-row>
+          <ion-col style="font-weight: bold">Description:</ion-col>
+          <ion-col>
+            <span [innerHTML]="ticketDetails.description"></span>
+          </ion-col>
+        </ion-row>
+      </ion-item-divider>
+      <ion-item-divider text-wrap>
+        <ion-row>
+          <ion-col style="font-weight: bold">Priority:</ion-col>
+          <ion-col *ngIf="ticketDetails.priority !== ''">{{ticketDetails.priority}}</ion-col>
+          <ion-col *ngIf="ticketDetails.priority === ''">N/A</ion-col>
+        </ion-row>
+      </ion-item-divider>
+      <ion-item-divider text-wrap>
+        <ion-row>
+          <ion-col style="font-weight: bold">Owner:</ion-col>
+          <ion-col *ngIf="ticketDetails.user !== null">{{ticketDetails.user.username}}</ion-col>
+          <ion-col *ngIf="ticketDetails.user === null">User Deatails not present.</ion-col>
+        </ion-row>
+      </ion-item-divider>
+      <ion-item-divider text-wrap>
+        <ion-row>
+          <ion-col style="font-weight: bold">Severity:</ion-col>
+          <ion-col>{{ticketDetails.severity}}</ion-col>
+        </ion-row>
+      </ion-item-divider>
+      <ion-item-divider text-wrap>
+        <ion-row>
+          <ion-col style="font-weight: bold">Created On:</ion-col>
+          <ion-col>{{ticketDetails.time | date: 'dd/MM/yyyy'}}</ion-col>
+        </ion-row>
+      </ion-item-divider>
+      <ion-item-divider text-wrap>
+        <ion-row>
+          <ion-col style="font-weight: bold">Assigned To:</ion-col>
+          <ion-col *ngIf="ticketDetails.assignto !== null">{{ticketDetails.assignto.username}}</ion-col>
+          <ion-col *ngIf="ticketDetails.assignto === null">Not yet Assigned</ion-col>
+        </ion-row>
+      </ion-item-divider>
+      <ion-item-divider text-wrap>
+        <ion-row>
+          <ion-col style="font-weight: bold">Assigned On:</ion-col>
+          <ion-col *ngIf="ticketDetails.timeofassign !== null">{{ticketDetails.time | date: 'dd/MM/yyyy'}}</ion-col>
+          <ion-col *ngIf="ticketDetails.timeofassign === null">N/A</ion-col>
+        </ion-row>
+      </ion-item-divider>
+    </ion-card-content>
+
+    <ion-card-content id="first">
+      <button ion-button color="secondary" outline  [disabled]="reopenBtn" (click)="presentAlert('Reopen')">Reopen</button>
+      <button ion-button color="blue" outline   (click)="presentAlert('Escalate')">Escalate</button>
+      <button ion-button color="danger" outline [disabled]="closeBtn" (click)="presentAlert('Close')">Close</button>
+    </ion-card-content>
+
+
+  </ion-card>
+</ion-content>

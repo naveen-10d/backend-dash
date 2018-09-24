@@ -1,0 +1,97 @@
+page-ticketDetails {
+
+    .header-txt{
+        text-align: center;
+    }
+
+    .header-btn{
+        text-align: center;
+    }
+
+    .urg-btn{
+        margin-left: -1%;
+    }
+
+    .header div {
+        background: #168bf1 !important;
+    }
+    
+    .badge{
+        background-color: grey;
+        border-radius: 3px;
+    }
+
+    .badg-item{
+        margin-top: -4%
+    }
+    
+    .text-item{
+        height: 57%;
+    }
+    .createdByRow {
+        padding-bottom: 0px !important;
+    }
+    .assignedToRow {
+        padding-top: 0px !important;
+    }
+
+    .item-divider-md {
+        border-bottom: 2px solid #666666 !important;
+    }
+
+    .sendButton {
+        background-color: #c0c0c0;
+        color:#5e5e5e;
+        // padding-top: 0px !important;
+        // padding-bottom: 0px !important;
+    }
+    .closeButton {
+        background-color: #c0c0c0;
+        color:#5e5e5e;
+
+    }
+
+    .infoCard {
+        background-color: #c0c0c0;
+        color:#5e5e5e;
+    }
+
+    .buttonRow {
+        padding-top: 0px !important;
+        padding-bottom: 0px !important;
+    }
+
+    .descriptionRow {
+        padding-bottom: 0px !important;
+    }
+
+    .orderText {
+        margin-bottom: 0px !important;
+    }
+  
+    .reopenButton {
+        background-color: #c0c0c0;
+        color:#5e5e5e;
+        // padding-top: 0px !important;
+        // padding-bottom: 0px !important;
+    }
+
+    .textCenter {
+        display: flex;
+        justify-content: center;
+    }
+
+    .text-area{
+        border: solid;
+        border-width: 1px;
+    }
+
+    textarea.text-input {
+       height:95%
+    }
+
+    .file-up{
+        margin-top: 2%
+    }
+
+}

@@ -1,0 +1,85 @@
+<ion-header>
+    <ion-navbar class="header">
+        <button ion-button menuToggle>
+            <ion-icon class="menu-icon" name="menu"></ion-icon>
+        </button>
+        <div class="logo-container">
+            <span class="header-title">STAHLS</span>
+            <!-- <ion-icon class="noti-icon" name="notifications"></ion-icon> -->
+        </div>
+    </ion-navbar>
+</ion-header>
+
+<ion-content>
+    <ion-item class="header-txt">
+        <span>
+            <h1>
+                <b>Add New Ticket</b> - Step 1</h1>
+        </span>
+    </ion-item>
+
+    <!-- <ion-item class="header-btn">
+      <button ion-button large>Regular</button><button color="light" class="urg-btn" ion-button large>Urgent</button>
+    </ion-item> -->
+
+
+
+    <ion-item class="header-btn">
+        <ion-segment [(ngModel)]="ticketType">
+            <ion-segment-button value="Regular" large>Regular</ion-segment-button>
+            <ion-segment-button value="Urgent" large>Urgent</ion-segment-button>
+        </ion-segment>
+    </ion-item>
+
+
+    <ion-item class="header-txt">
+        <h2>
+            <b>Select the orders that you want
+                <br> to include on this ticket. You can
+                <br> add as many as you need</b>
+        </h2>
+    </ion-item>
+
+    <div class="searchbar-top">
+        <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
+        <a (click)="filterOrder()"> Filter/Sort by</a>
+    </div>
+    <ion-list class="lists">
+        <ion-item *ngFor="let item of orderslist">
+            <ion-card (click)="selectedRow(item)"  [ngClass]="selectedRowValue.indexOf(item) > -1 ? 'selectedCard':'unSelectedCard'">
+                <ion-card-content>
+                    <ion-card-title>
+                        <h3>
+                            <b>{{item.OrderNumber}}</b>
+                        </h3>
+                        <ion-badge item-end>{{item.StatusName}}</ion-badge>
+                    </ion-card-title>
+                    <ion-list>
+                        <span>Location: {{item.CompanyCode}}</span>
+                        <br/>
+                        <span>PO: {{item.PONumber}}</span>
+                        <br/>
+                        <span>Date: {{item.OrderDate | date: 'MM/dd/yyyy'}}</span>
+                        <br/>
+                        <span *ngIf="item.Tickets === null">Tickets: 0</span>
+                        <span *ngIf="item.Tickets !== null">Tickets: {{item.Tickets}}</span>
+                    </ion-list>
+                </ion-card-content>
+            </ion-card>
+        </ion-item>
+    </ion-list>
+    <button ion-button *ngIf="orderslist !==undefined" style="float:right" ion-button (click)="doInfinite()">Next</button>
+</ion-content>
+<ion-footer>
+    <ion-item>
+        <div *ngIf="ticketType !== undefined && selectedRowValue.length ===0 ">
+            <button ion-button full large (click)="presentconfirm()">Continue</button>
+        </div>
+        <div *ngIf="selectedRowValue.length > 0 && ticketType !== undefined">
+            <button ion-button full large (click)="gotoNextStep()">Continue</button>
+        </div>
+        <div *ngIf="ticketType === undefined">
+            <button disabled ion-button full large (click)="presentconfirm()">Continue</button>
+        </div>
+    </ion-item>
+</ion-footer>

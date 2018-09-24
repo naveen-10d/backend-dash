@@ -1,0 +1,200 @@
+<app-sidenav></app-sidenav>
+<div class="container">
+  <h1>
+    <span class="title">
+      <b>Tickets Summary</b>
+    </span>
+  </h1>
+  <div>
+    <mat-card class="searchbar row">
+      <div>
+        <span class="fa fa-search faStyle"></span>
+        <input class="txtcolor " type="text" placeholder="Search" [(ngModel)]="searchtext" #input>
+        <span class="fa fa-caret-down fa-lg" style="cursor:pointer" (click)="searchmodel()"></span>
+        <div *ngIf="search" class="description-drop">
+          <!-- <label>Description</label>
+          <br/>
+          <input class="inputtext" type="text" oninput="this.value" [(ngModel)]="description.text" (ngModelChange)="Descriptionsearch($event)"/>
+          <br/> -->
+          <label class="searchlabel">PONumber:</label>
+          <input class="inputtext" type="text" [(ngModel)]="Search.PONumber" (keyup.enter)="searchFilter()" />
+          <br />
+          <br />
+          <label class="searchlabel">OrderNumber:</label>
+          <input class="inputtext" type="text" [(ngModel)]="Search.orderNumber" (keyup.enter)="searchFilter()" />
+          <br />
+          <br />
+          <label class="searchlabel">Created Date:</label>
+          <input class="inputtext" type="date" [(ngModel)]="Search.createDate" (change)="searchFilter()" />
+          <br />
+          <br />
+          <label class="searchlabel">Created By Name:</label>
+          <input class="inputtext" type="text" [(ngModel)]="Search.createdName" (keyup.enter)="searchFilter()" />
+          <br />
+          <br />
+          <label class="searchlabel">Assigned To Name:</label>
+          <input class="inputtext" type="text" [(ngModel)]="Search.assignedName" (keyup.enter)="searchFilter()" />
+          <br />
+          <br />
+          <label class="searchlabel">Comments:</label>
+          <input class="inputtext" type="text" [(ngModel)]="Search.comments" (keyup.enter)="searchFilter()" />
+            <br>
+            <!-- <div class="row" style="padding-top:3%; float:right">
+                <button mat-raised-button (click)="cancelFilter()">Cancel</button>
+                &nbsp;
+            <button mat-raised-button color="primary" (click)="searchFilter()">Search</button>
+          </div>
+           -->
+           <div class="row" style="padding-top:3%;">
+             <div class="col-lg-4">
+               <button [disabled]="isClearFilter" mat-raised-button color="warn" (click)="clearFilterValue()">Clear</button>
+             </div>
+             <div class="col-lg-8" style="left: 20%;">
+                <button mat-raised-button (click)="cancelFilter()">Close</button>
+                &nbsp;
+            <button mat-raised-button color="primary" (click)="searchFilter()">Search</button>
+             </div>
+      </div>
+        </div>
+      </div>
+
+      <div class="pull-right">
+        <i class="filterName">Filter by</i>
+        <span>
+
+          <mat-form-field class="assignedToField" *ngIf="filter?.organization?.length > 0">
+            <mat-select (change)="organizationFilter()" placeholder="Organization" multiple [formControl]="selectfilter">
+              <mat-option *ngFor="let organizationName of filter.organization" [value]="organizationName.organizationname">{{organizationName.organizationname}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field class="CreatedByField">
+            <mat-select (change)="createByFilter()" placeholder="Created by" multiple [formControl]="selectfilter">
+              <mat-option *ngFor="let createdBy of filter.createdBy" [value]="createdBy.firstname">{{createdBy.firstname}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+
+          <mat-form-field class="assignedToField">
+            <mat-select (change)="assignedToFilter()" placeholder="Assigned to" multiple [formControl]="selectfilter">
+              <mat-option *ngFor="let AssignedTo of filter.assignedTo" [value]="AssignedTo.firstname">{{AssignedTo.firstname}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+
+
+          <mat-form-field class="statusField">
+            <mat-select (change)="statusFilter()" placeholder="Status" multiple [formControl]="selectfilter">
+              <mat-option *ngFor="let statusName of filter.Status" [value]="statusName.Status">{{statusName.Status}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </span>
+
+      </div>
+    </mat-card>
+  </div>
+  <br>
+
+  <div class="text-center">
+    <button class="btn btn-primary" [routerLink]="['/ticketcreation']">
+      <i class="fa fa-plus-circle" style="color: white"></i> New Ticket</button>
+  </div>
+
+  <br>
+  <div class="ticket-container mat-elevation-z8 col-xs-12">
+
+    <mat-table [dataSource]="dataSource" matSort matSortActive="Date" matSortDirection="desc" matSortDisableClear>
+
+      <ng-container matColumnDef="Id">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Number </mat-header-cell>
+        <mat-cell class="rowUUID" *matCellDef="let row"> {{row.id}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="PONumber">
+        <mat-header-cell class="headerNoAllowed" *matHeaderCellDef> PONumber </mat-header-cell>
+        <mat-cell *matCellDef="let row">
+          <div class="emptyRowValues" *ngIf="row.PONumberList?.length === 0">--</div>
+          <div *ngFor="let PONumber of row.PONumberList">{{PONumber}}</div>
+        </mat-cell>
+      </ng-container>
+
+
+      <ng-container matColumnDef="Date">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Created date </mat-header-cell>
+        <mat-cell *matCellDef="let row">
+          {{row.Date | date:'MM/dd/yyyy'}}
+        </mat-cell>
+      </ng-container>
+
+
+      <ng-container matColumnDef="Order_number">
+        <mat-header-cell class="headerNoAllowed" *matHeaderCellDef> Order number </mat-header-cell>
+        <mat-cell *matCellDef="let row">
+          <div class="emptyRowValues" *ngIf="row.orderNumberList?.length === 0"> -</div>
+          <div *ngFor="let orderNumber of row.orderNumberList">
+            {{orderNumber}}
+          </div>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container  matColumnDef="Created_By">
+        <mat-header-cell class="headerNoAllowed" *matHeaderCellDef> Created by </mat-header-cell>
+        <mat-cell *matCellDef="let row" [style.color]="green">
+          <div *ngIf="row.createdByUuid === null">
+            -
+          </div>
+          <div *ngIf="row.createdByUuid !== null">
+            {{row.createdByName}}
+          </div>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="organization">
+        <mat-header-cell  class="headerNoAllowed"  *matHeaderCellDef style="cursor: block"> Company </mat-header-cell>
+        <mat-cell *matCellDef="let row" [style.color]="green"> {{row.Company}} </mat-cell>
+      </ng-container>
+
+      <ng-container  matColumnDef="Assigned_To">
+        <mat-header-cell class="headerNoAllowed" *matHeaderCellDef> Assigned to </mat-header-cell>
+        <mat-cell *matCellDef="let row" [style.color]="green">
+          <div *ngIf="row.assignedToName?.length === 0">
+            -
+          </div>
+          <div *ngIf="row.assignedToName?.length != 0">
+            <div *ngFor="let assignedToName of row.assignedToName">
+              {{assignedToName}}
+            </div>
+          </div>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="Type">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Type </mat-header-cell>
+        <mat-cell *matCellDef="let row" [style.color]="green"> {{row.type}} </mat-cell>
+      </ng-container>
+
+
+      <ng-container matColumnDef="Status">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Status </mat-header-cell>
+        <mat-cell *matCellDef="let row">
+          <span *ngIf="row.status=='Open'" class="badge bg-secondary" style="color:white">{{row.status}}</span>
+          <span *ngIf="row.status=='New'" class="badge bg-secondary" style="color:white">{{row.status}}</span>
+          <span *ngIf="row.status=='in progress'" class="badge bg-success" style="color:white">{{row.status}}</span>
+          <span *ngIf="row.status=='Closed'" class="badge bg-primary" style="color:white">{{row.status}}</span>
+          <span *ngIf="row.status=='Assigned'" class="badge bg-warning" style="color:white">{{row.status}}</span>
+          <span *ngIf="row.status=='Reopen'" class="badge bg-warning" style="color:white">{{row.status}}</span>
+        </mat-cell>
+      </ng-container>
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row (click)="onRowSelected(row)" *matRowDef="let row; columns: displayedColumns;">
+      </mat-row>
+    </mat-table>
+    <div class="page-no">Page.No: {{pageNo}}</div>
+    <mat-paginator #paginator class="ticketPagination" [length]="dataSource.countValue" [pageSize]="25" [pageSizeOptions]="[25, 50, 100]"
+      [showFirstLastButtons]="true">
+    </mat-paginator>
+  </div>
+  <!-- <div class='row' style="margin-bottom:1000px;padding-bottom:500px">
+    <mat-paginator [length]="5" [pageSize]="3" [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+  </div> -->
+</div>

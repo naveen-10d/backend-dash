@@ -1,0 +1,94 @@
+<ion-header>
+    <ion-navbar class="header" hideBackButton>
+        <button ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+        <div class="logo-container">
+            <span class="header-title">STAHLS</span>
+            <ion-icon class="noti-icon" name="notifications"></ion-icon>
+        </div>
+    </ion-navbar>
+</ion-header>
+
+<ion-content>
+    <ion-item class="filter-header">
+        Filter Orders By:
+    </ion-item>
+
+    <ion-item class="item-header">
+        Location
+    </ion-item>
+    <ion-item>
+        <ion-label>DFC</ion-label>
+        <ion-checkbox color="dark"></ion-checkbox>
+    </ion-item>
+    <ion-item>
+        <ion-label>DFC</ion-label>
+        <ion-checkbox color="dark"></ion-checkbox>
+    </ion-item>
+
+
+    <ion-item class="item-header">
+        Number of tickets
+    </ion-item>
+    <ion-item>
+        <ion-label>1</ion-label>
+        <ion-checkbox color="dark"></ion-checkbox>
+    </ion-item>
+    <ion-item>
+        <ion-label>2</ion-label>
+        <ion-checkbox color="dark"></ion-checkbox>
+    </ion-item>
+
+    <ion-item class="item-header">
+        Status
+    </ion-item>
+    <ion-item>
+        <ion-label>New</ion-label>
+        <ion-checkbox color="dark"></ion-checkbox>
+    </ion-item>
+    <ion-item>
+        <ion-label>In progress</ion-label>
+        <ion-checkbox color="dark"></ion-checkbox>
+    </ion-item>
+    <ion-item>
+        <ion-label>Delayed</ion-label>
+        <ion-checkbox color="dark"></ion-checkbox>
+    </ion-item>
+    <ion-item>
+        <ion-label>In progress</ion-label>
+        <ion-checkbox color="dark"></ion-checkbox>
+    </ion-item>
+
+
+    <ion-item class="item-header">
+        Sort by
+    </ion-item>
+    <div class="radio-box">
+        <ion-item>
+            <input name="sortby" type="radio">
+            <span>Status</span>
+        </ion-item>
+        <ion-item>
+            <input name="sortby" type="radio">
+            <span>ASC</span>
+        </ion-item>
+    </div>
+    <div class="radio-box">
+        <ion-item>
+            <input name="sortby" type="radio">Number of tickets
+        </ion-item>
+        <ion-item>
+            <input name="sortby" type="radio">DESC
+        </ion-item>
+    </div>
+    <ion-item>
+        <input name="sortby" type="radio">Location
+    </ion-item>
+    <ion-item>
+        <input name="sortby" type="radio">Date
+    </ion-item>
+
+
+    <button ion-button class="btn-filter" outline>Filter and Sort </button>
+</ion-content>

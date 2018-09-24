@@ -1,0 +1,77 @@
+<app-sidenav></app-sidenav>
+
+
+<div>
+
+  <div class="col-md-10 orderTicketText">Data Syncronization Details</div>
+
+  <br>
+
+  <div class="form-txt">
+    <span>Time Frequency For Syncronization:</span>
+    <!-- <mat-form-field class="example-full-width">
+        
+        <input (click)="enable=true" matInput placeholder="In Minutes" [(ngModel)]="time">
+      </mat-form-field> -->
+    <mat-slider thumbLabel="true" color="warn" tickInterval="1" min="1" max="60" [(ngModel)]="sliderValue" (change)="Onchange()"></mat-slider>
+    <span style="color:#b4b6b7">{{sliderValue}}(MINS)</span>
+    <br>
+    <br>
+    <button style="margin-left: 36%;" [disabled]=!update mat-raised-button color='primary' (click)="updateTime()">Update</button>
+
+    <div class="header">
+      <b>
+        <h3>Syncronization Time-Table:</h3>
+      </b>
+    </div>
+    <div class="ticket-container mat-elevation-z8 col-xs-12 table">
+
+      <mat-table #table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+
+        <ng-container matColumnDef="Sync Date">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Sync Date </mat-header-cell>
+          <mat-cell *matCellDef="let row"> {{row.updatedAt | date:'MM/dd/yyyy'}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="Sync Time">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Sync Time </mat-header-cell>
+          <mat-cell *matCellDef="let row"> {{row.updatedAt | date:'hh:mm:ss a z'}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="ExportDate">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Polypm DataExportDate </mat-header-cell>
+          <mat-cell *matCellDef="let row"> {{row.DataExportDate | date:'MM/dd/yyyy'}} </mat-cell>
+        </ng-container>
+
+        <!-- <ng-container matColumnDef="SyncConfig">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> SyncConfig </mat-header-cell>
+          <mat-cell *matCellDef="let row"> {{row.SyncConfig}} </mat-cell>
+        </ng-container> -->
+
+        <ng-container matColumnDef="Status">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Status </mat-header-cell>
+          <mat-cell *matCellDef="let row"> {{row.SyncStatus}} </mat-cell>
+        </ng-container>
+
+        <!-- <ng-container matColumnDef="Created Date">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Created Date </mat-header-cell>
+          <mat-cell *matCellDef="let row"> {{row.createdAt | date:'MM/dd/yyyy'}} </mat-cell>
+        </ng-container> -->
+
+
+        <ng-container matColumnDef="Table">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Table </mat-header-cell>
+          <mat-cell *matCellDef="let row"> {{row.SyncTable}} </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;">
+        </mat-row>
+
+      </mat-table>
+      <mat-paginator [pageSize]="25" [pageSizeOptions]="[25, 50, 100]" [showFirstLastButtons]="true"></mat-paginator>
+    </div>
+
+    <!-- <button style="margin-left: 36%;" mat-raised-button color='primary' [disabled]="!enable"  (click)="updateTime()">Update</button> -->
+  </div>
+</div>

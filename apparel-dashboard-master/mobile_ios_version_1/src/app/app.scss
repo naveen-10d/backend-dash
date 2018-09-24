@@ -1,0 +1,91 @@
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+.item-inner{
+    border-bottom: 0px !important;
+}
+.avatar-text{
+  color: white;
+  margin-top: 7%;
+  margin-left: 18%;
+  // text-align: center;
+  font-weight: 800;
+  font-size: 18px;
+}
+
+.avatar-role{
+  color: white;
+  // margin-top: 9%;
+  text-align: center;
+  font-weight: 800;
+  font-size: 14px;
+
+}
+.logoutDiv {
+  color: white;
+  text-align: center;
+}
+.navBarContent {
+  background-image: linear-gradient(#002f64, #003052) !important;
+    margin-top: 30px !important;
+}
+.avatar-center {
+  text-align: -webkit-center !important;
+  margin-top: 15%;
+  background: transparent;
+}
+
+.sidenav {
+    background-image: linear-gradient(#002f64, #003052) !important;
+    margin-top: 15px !important;
+  }
+  .menulist{
+    background: transparent;
+    color: white;
+    min-height: 5rem !important;
+  }
+  
+  .menulist:hover{
+    background: #D0282F;
+    color: white
+  }
+  
+  .menulist:focus{
+    background: #D0282F;
+    color: white
+  }
+
+  .menu-inner {
+    width: 250px;
+  }
+  .menu-icon {
+    color: white !important;
+    font-size: 4.4rem !important;
+    margin-top: -5px !important;
+  }
+  .back-button {
+    color: white !important;
+    font-size: 4.4rem !important;
+  }
+
+  .stahls-menu ion-header{
+    padding: 8px 5px;
+  }
+  .avatar-container{
+    margin-left: 15px;
+  }
+
+.header-s-text{
+    padding: 15px 15px;
+    color: #f3f4f3;
+    font-size: 16px;
+    font-weight: 600;
+}
+.s-user-role{
+  font-style: italic;
+  font-weight: 500;
+}
+.bar-button-default-ios {
+  margin-left: 10px !important;
+}

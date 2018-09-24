@@ -1,0 +1,57 @@
+<ion-header>
+  <ion-navbar hideBackButton>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Create Ticket</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <ion-card>
+    <ion-card-header>
+      User Information
+    </ion-card-header>
+    <ion-list>
+        <ion-item>
+          <ion-label floating>Name</ion-label>
+          <ion-input [(ngModel)]="userDetails.firstname" disabled="true" type="text"></ion-input>
+        </ion-item>
+      
+        <ion-item>
+          <ion-label floating>E-Mail</ion-label>
+          <ion-input [(ngModel)]="userDetails.email" disabled="true" type="email"></ion-input>
+        </ion-item>
+      </ion-list>
+  </ion-card>
+
+  <ion-card>
+      <ion-card-header>
+        Ticket Information
+      </ion-card-header>
+  
+      <ion-list>
+            <ion-item>
+              <ion-label floating>Subject:</ion-label>
+              <ion-input [(ngModel)]="ticket.subject" type="text"></ion-input>
+            </ion-item>
+
+            <ion-item>
+              <ion-label>Severity</ion-label>
+              <ion-select [(ngModel)]="ticket.severity">
+                <ion-option value="critical">Critical</ion-option>
+                <ion-option value="major">Major</ion-option>
+                <ion-option value="minor">Minor</ion-option>
+                <ion-option value="trivial">Trivial</ion-option>
+              </ion-select>
+            </ion-item>
+
+            <ion-item>
+                <ion-label>Description:</ion-label>
+                <ion-textarea [(ngModel)]="ticket.description" placeholder="Enter a description"></ion-textarea>
+            </ion-item>
+          </ion-list>
+  </ion-card>
+
+  <button ion-button color="blue" (click)="createTicket()" block>Create Ticket</button>
+  <button ion-button color="danger" (click)="goToDashboard()" clear block>Cancel</button>
+</ion-content>

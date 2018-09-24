@@ -1,0 +1,19 @@
+{
+  "name": "stahls_node_app",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "NODE_ENV=production nodemon main",
+    "test": "jasmine-node spec --verbose --captureExceptions",
+    "pretest": "eslint --ignore-path .gitignore ."
+  },
+  "dependencies": {
+    "stahls_node_pacakge": "1.0.0"
+  },
+  "devDependencies": {
+    "@angular/cli": "^1.7.3",
+    "eslint": "^4.19.1",
+    "eslint-config-strongloop": "^2.1.0",
+    "eslint-plugin-jasmine": "^2.9.3"
+  }
+}

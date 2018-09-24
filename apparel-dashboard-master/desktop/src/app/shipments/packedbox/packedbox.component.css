@@ -1,0 +1,8 @@
+
+/* needtoremove */
+.bread-crumb {
+    text-decoration: underline !important;
+    margin-right: 4px;
+    color: #007bff !important;
+    cursor: pointer;
+}

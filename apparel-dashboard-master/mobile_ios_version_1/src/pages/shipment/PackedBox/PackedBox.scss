@@ -1,0 +1,26 @@
+page-PackedBox{
+    .header div {
+        background: #168bf1 !important;
+    }
+    
+     ion-searchbar {
+         width: 60%;
+         margin-left: 20px;
+     }
+     .searchbar-top {
+         display: flex;
+         a {
+             line-height: 4;
+             text-decoration: underline;
+         }
+     }
+     .searchbar-ios {
+         background: transparent;
+     }
+     .searchbar-md .searchbar-input {
+         border-radius: 20px;
+     }
+     .searchbar-ios .searchbar-input {
+         border-radius: 20px;
+     }
+}

@@ -1,0 +1,53 @@
+<ion-header>
+    <ion-navbar class="header">
+        <button ion-button menuToggle>
+            <ion-icon class="menu-icon" name="menu"></ion-icon>
+        </button>
+        <div class="logo-container">
+            <span class="header-title">STAHLS</span>
+            <!-- <ion-icon class="noti-icon" name="notifications"></ion-icon> -->
+        </div>
+    </ion-navbar>
+</ion-header>
+<ng4-loading-spinner>
+</ng4-loading-spinner>
+<ion-content class="page-con">
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull to refresh" refreshingSpinner="circles" refreshingText="Refreshing...">
+        </ion-refresher-content>
+    </ion-refresher>
+    <span class="dash-title">Packed Box Items Summary
+        <br/>
+    </span>
+    <div class="searchbar-top">
+        <ion-searchbar [(ngModel)]="searchTerm" type="search" (ionInput)="setFilteredItems()"></ion-searchbar>
+    </div>
+    <ion-list class="lists">
+        <ion-item *ngFor='let packeditems of items'>
+            <ion-card>
+                <ion-card-content class="dashCard">
+                    <ion-card-title>
+                        <h3>
+                            <b>{{packeditems.PackedBoxID}}</b>
+                        </h3>
+                    </ion-card-title>
+                    <ion-list>
+                        <span>StyleNumber: {{packeditems.StyleNumber}} </span>
+                        <br/>
+                        <span>StyleColor: {{packeditems.StyleColor}}</span>
+                        <br/>
+                        <span>StyleOptions: {{packeditems.StyleOption}}</span>
+                        <br/>
+                        <span>GarmentSize: {{packeditems.GarmentSize}}</span>
+                        <br/>
+                        <span>Quantity: {{packeditems.Quantity}}</span>
+                        <!-- <br/>
+                        <span>BoxCode: {{packeditems.BoxCode}}</span>
+                        <br/>
+                        <span>PackedBox ID: {{packeditems.PackedBoxID}}</span> -->
+                    </ion-list>
+                </ion-card-content>
+            </ion-card>
+        </ion-item>
+    </ion-list>
+</ion-content>

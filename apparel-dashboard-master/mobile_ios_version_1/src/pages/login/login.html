@@ -1,0 +1,25 @@
+ 
+ <ion-content padding>
+    <ion-grid style="height: 100%">
+        <ion-row justify-content-center align-items-center style="height: 100%">
+          <ion-card  class="loginCard">
+              <img class="login-logo" src="assets/img/logo.png">
+              <ion-input class="login-input" placeholder="Username" [(ngModel)]="username" type="text"></ion-input>
+              <ion-input class="login-input" placeholder="Password" [(ngModel)]="password" type="password"></ion-input>
+              <button (click)="afterlogin()" ion-button class="login-button">Login</button> <br/> <br/>
+          </ion-card>
+        </ion-row>
+      </ion-grid>
+  <!-- <ion-grid class="loginCard">
+      <ion-card>
+      <ion-card-content >
+        <img class="login-logo" src="assets/imgs/logo.png"> -->
+        <!-- <ion-label class="login-label">Log In</ion-label> <br/> -->
+        <!-- <ion-input class="login-input" placeholder="Username" [(ngModel)]="username" type="text"></ion-input>
+        <ion-input class="login-input" placeholder="Password" [(ngModel)]="password" type="password"></ion-input>
+        <button (click)="afterlogin()" ion-button class="login-button">Login</button> <br/> <br/>
+        <a href="">Forgot Password?</a>
+      </ion-card-content>
+    </ion-card>
+  </ion-grid> -->
+</ion-content>

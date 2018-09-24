@@ -1,0 +1,12 @@
+<ion-content padding>
+  <ion-grid class="loginCard">
+      <ion-card-content >
+        <img class="login-logo" src="assets/imgs/logo.png">
+        <!-- <ion-label class="login-label">Log In</ion-label> <br/> -->
+        <ion-input class="login-input" placeholder="Username" [(ngModel)]="username" type="text"></ion-input>
+        <ion-input class="login-input" placeholder="Password" [(ngModel)]="password" type="password"></ion-input>
+        <button (click)="afterlogin()" ion-button class="login-button">Login</button> <br/> <br/>
+        <a href="">Forgot Password?</a>
+      </ion-card-content>
+  </ion-grid>
+</ion-content>

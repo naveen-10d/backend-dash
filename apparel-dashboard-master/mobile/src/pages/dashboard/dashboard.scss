@@ -1,0 +1,116 @@
+.badge {
+    border-radius: 0px;
+    float: right;
+    background-color: #418f19;
+    font-family: Arial, Helvetica, sans-serif;
+}
+ 
+.dashCard {
+    background: #b8b9b857;
+}
+
+.card-title {
+    background: transparent;
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 5px 0px;
+}
+
+.header-title {
+
+    color: white;
+    font-weight: bold;
+    font-size: 25px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.dash-title {
+    color: black;
+    font-weight: bold;
+    font-size: 25px;
+}
+
+.card-title1 {
+    font-size: 2.0em;
+    font-weight: bold;
+    color: black;
+    text-align: center;
+}
+
+.delayed {
+    background: #d89b56b0;
+    width: 100%;
+    height: 35px;
+    font-size: 14px;
+    color: rgb(155, 106, 14);
+    text-align: left;
+}
+
+.pending {
+    background:rgb(139, 224, 131);
+    width: 100%;
+    height: 35px;
+    font-size: 14px;
+    color: rgb(10, 155, 53);
+    text-align: left;
+    // margin-top: 10px;
+}
+
+.track-badge {
+    display: flex;
+    margin-top: 10px;
+}
+
+.div-badge {
+    height: 40px;
+    width: 40px;
+    border-radius: 20px;
+    line-height: 4rem;
+    font-size: 20px;
+    margin-left: 10%;
+    text-align: center;
+    color: white;
+}
+
+.data-badge {
+    text-align: left;
+    color: black;
+    margin-left: 10%;
+    height: 40px;
+    width: 70px;
+    border-radius: 10px;
+    line-height: 2rem;
+}
+
+.b1 {
+    background: blue;
+}
+
+.b2 {
+    background: #408e1a;
+}
+
+.b3 {
+    background: #f7b706;
+}
+
+.b4 {
+    background: #0c0361;
+}
+
+.nav-logo{
+    text-align: center;
+}
+
+.logo-container {
+    text-align: center;
+    margin-right: 50px;
+}
+
+.noti-icon {
+    font-size: 3.3rem;
+    color: white;
+    position: absolute;
+    right: 16px;
+}
+.header div {
+    background: #206cd6 !important;
+}

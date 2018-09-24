@@ -1,0 +1,313 @@
+<app-sidenav></app-sidenav>
+<div class="container">
+  <h1>
+    <span class="title">
+      <b>Inventory</b>
+    </span>
+  </h1>
+
+  <mat-card class="searchbar row">
+
+    <div>
+      <span class="fa fa-search faStyle"></span>
+      <input class="txtcolor" type="text" placeholder="Search" #input>
+    </div>
+
+
+    <div [ngClass]="{'pull-right': pullRight, 'pull-right-code': pullRightCode}">
+      <i class="filterName">Filter by</i>
+      <span>
+
+        <mat-form-field class="locationField" *ngIf="pullRightCode">
+          <mat-select placeholder="code" multiple [formControl]="filterLocation" (change)="codeFilter()">
+            <mat-option *ngFor="let style of filterValue?.code" [value]="style.CompanyCode">{{style?.CompanyCode}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="locationField">
+          <mat-select placeholder="Style" multiple [formControl]="filterStyle" (change)="styleFilter()">
+            <mat-option *ngFor="let style of filterValue?.style" [value]="style.StyleNumber">{{style?.StyleNumber}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="ticketField">
+          <mat-select (change)="colorFilter()" placeholder="Color" multiple [formControl]="filterColor">
+            <mat-option *ngFor="let inventcolor of filterValue?.color" [value]="inventcolor.StyleColor">{{inventcolor?.StyleColor}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+
+        <mat-form-field class="statusField">
+          <mat-select (change)="sizeFilter()" placeholder="Size" multiple [formControl]="filterSize">
+            <mat-option *ngFor="let size of filterValue?.size" [value]="size.GarmentSize">{{size?.GarmentSize}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+      </span>
+
+    </div>
+  </mat-card>
+
+  <br>
+  <div class="text-center exportButton">
+    <button class="btn btn-primary" (click)="openExportcsvModal()">
+      <i class="fa fa-download" style="color: white"></i> Export CSV</button>
+  </div>
+
+  <div class="ticket-container mat-elevation-z8 col-xs-12">
+    <!-- 
+    <div class="spinner-container" *ngIf="dataSource.loading$ | async">
+      <mat-spinner></mat-spinner>
+    </div> -->
+
+
+    <mat-table [dataSource]="dataSource" matSort matSortActive="StyleNumber" matSortDirection="desc"
+      matSortDisableClear>
+
+      <ng-container matColumnDef="StyleNumber">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Style </mat-header-cell>
+        <mat-cell *matCellDef="let row">
+          <span *ngIf="row.StyleNumber != null">{{row.StyleNumber}}</span>
+          <span *ngIf="row.StyleNumber == null">-</span>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="StyleColor">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Color </mat-header-cell>
+        <mat-cell *matCellDef="let row">
+          <span *ngIf="row.StyleColor != null">{{row.StyleColor}}</span>
+          <span *ngIf="row.StyleColor == null">-</span>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="GarmentSize">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Size </mat-header-cell>
+        <mat-cell *matCellDef="let row" [style.color]="green">
+          <span *ngIf="row.GarmentSize != null">{{row.GarmentSize}}</span>
+          <span *ngIf="row.GarmentSize == null">-</span>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="StyleOption">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> StyleOption </mat-header-cell>
+        <mat-cell *matCellDef="let row" [style.color]="green">
+          <span *ngIf="row.StyleOption != null">{{row.StyleOption}}</span>
+          <span *ngIf="row.StyleOption == null">-</span>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="StyleName">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> StyleName </mat-header-cell>
+        <mat-cell *matCellDef="let row" [style.color]="green">
+          <span *ngIf="row.StyleName != null">{{row.StyleName}}</span>
+          <span *ngIf="row.StyleName == null">-</span>
+        </mat-cell>
+      </ng-container>
+
+
+
+      <ng-container matColumnDef="QuantityOnHand">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> On Hand </mat-header-cell>
+        <mat-cell *matCellDef="let row" [style.color]="green"> {{row.QuantityOnHand}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="QuantityAllocated">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Allocated </mat-header-cell>
+        <mat-cell *matCellDef="let row" [style.color]="green">
+          <span *ngIf="row.QuantityAllocated != null">{{row.QuantityAllocated}}</span>
+          <span *ngIf="row.QuantityAllocated == null">-</span>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="AdjustedQuantityOnHand">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Available </mat-header-cell>
+        <mat-cell *matCellDef="let row" [style.color]="blue">
+          <!-- <span *ngIf="row.AdjustedQuantityOnHand != null">{{row.AdjustedQuantityOnHand}}</span>
+          <span *ngIf="row.AdjustedQuantityOnHand == null">-</span> -->
+          <span *ngIf ="row.QuantityOnHand == null || row.QuantityAllocated == null">-</span>
+          <span *ngIf ="row.QuantityOnHand != null && row.QuantityAllocated != null">{{row.QuantityOnHand -row.QuantityAllocated }} </span>
+       
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="QuantitySeconds">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Quarantined </mat-header-cell>
+        <mat-cell *matCellDef="let row" [style.color]="blue">
+          <span *ngIf="row.QuantitySeconds != null">{{row.QuantitySeconds}}</span>
+          <span *ngIf="row.QuantitySeconds == null">-</span>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="QuantityThirds">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Scrapped </mat-header-cell>
+        <mat-cell *matCellDef="let row" [style.color]="blue">
+          <span *ngIf="row.QuantityThirds != null">{{row.QuantityThirds}}</span>
+          <span *ngIf="row.QuantityThirds == null">-</span>
+        </mat-cell>
+      </ng-container>
+
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="onRowSelected(row)" matRipple class="element-row" [cdkDetailRow]="row"
+        [cdkDetailRowTpl]="tpl">
+      </mat-row>
+    </mat-table>
+
+    <div class="page-no">Page.No: {{pageNo}}</div>
+    <mat-paginator class="custom-page" #paginator [length]="dataSource.countValue" [pageSize]="25" [pageSizeOptions]="[25, 50, 100]"
+      [showFirstLastButtons]="true">
+    </mat-paginator>
+  </div>
+
+  <!-- <ng-template #tpl let-element>
+    <div style="display:flex;vertical-align:middle;background-color: gainsboro;font:initial">
+      <div style="display:flex;vertical-align:middle">
+        <div style="padding:1%;width:100%">
+          <table cellspacing="10">
+            <tr class="header">
+              <th>Transaction ID</th>
+              <th>Style Number</th>
+              <th>Color</th>
+              <th>Size</th>
+              <th>Adjustment Reason</th>
+              <th>Adjustment Reason2</th>
+              <th>Date</th>
+              <th>Quantity</th>
+            </tr>
+            <tbody class="tablebody" *ngIf="element?.FinishedGoodsAdjustments.length == 0">
+              <tr>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+              </tr>
+            </tbody>
+            <tbody class="tablebody" *ngIf="element?.FinishedGoodsAdjustments.length != 0">
+              <tr *ngFor='let items of element.FinishedGoodsAdjustments'>
+                <td class="content">
+                  <span *ngIf="items?.TransactionID == null">-</span>
+                  <span *ngIf="items?.TransactionID != null">{{items.TransactionID}}</span>
+                </td>
+                <td>
+                  <span *ngIf="items?.StyleName == null">-</span>
+                  <span *ngIf="items?.StyleName != null">{{items.StyleNumber}}</span>
+                </td>
+                <td>
+                  <span *ngIf="items?.StyleColor == null">-</span>
+                  <span *ngIf="items?.StyleColor != null">{{items.StyleColor}}</span>
+                </td>
+                <td>
+                  <span *ngIf="items?.GarmentSize == null">-</span>
+                  <span *ngIf="items?.GarmentSize != null">{{items.GarmentSize}}</span>
+                </td>
+                <td>
+                  <span *ngIf="items?.TransactionReasonCode == null">-</span>
+                  <span *ngIf="items?.TransactionReasonCode != null">{{items.TransactionReasonCode}}</span>
+                </td>
+                <td>
+                  <span *ngIf="items?.TransactionReasonCode2 == null">-</span>
+                  <span *ngIf="items?.TransactionReasonCode2 != null">{{items.TransactionReasonCode2}}</span>
+                </td>
+                <td>
+                  <span *ngIf="items?.DataExportDate == null">-</span>
+                  <span *ngIf="items?.DataExportDate != null">{{items.DataExportDate | date:'MM/dd/yyyy' }}</span>
+                </td>
+                <td>
+                  <span *ngIf="items?.Quantity == null">-</span>
+                  <span *ngIf="items?.Quantity != null">{{items.Quantity}}</span>
+                </td>
+              </tr>
+
+            </tbody>
+
+          </table>
+        </div>
+      </div>
+    </div>
+  </ng-template> -->
+
+
+  <!-- working flow -->
+  <modal #ExportCSV>
+    <modal-header>
+      <h4>Export CSV</h4>
+    </modal-header>
+    <modal-body>
+      <div>
+        <strong>Select What you need to Export</strong>
+      </div>
+      <div class="optionDiv">
+        <div>
+          <mat-radio-group>
+            <mat-radio-button (change)="radioChange($event)" style="margin-left: 6em" *ngFor="let export of exportOption"
+              [value]="export">
+              {{export}}
+            </mat-radio-button>
+          </mat-radio-group>
+        </div>
+        &nbsp;
+        <div *ngIf="exportValue == 'Inventory Transaction'">
+          <strong>Inventory Transaction In Between:</strong>
+        </div>
+        <div *ngIf="exportValue == 'Inventory Transaction'">
+          <mat-form-field>
+            <mat-select (change)="styleselect()" placeholder="Style" multiple [formControl]="selectexport">
+              <mat-option *ngFor="let style of filterValue?.style" [value]="style.StyleNumber">{{style?.StyleNumber}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div style="display:flex; margin-top: 1em" *ngIf="exportValue == 'Inventory Transaction'">
+          <mat-form-field color="accent" appearance='outline' class="dateForm">
+            <mat-label>Start Date</mat-label>
+            <input matInput type="date" [(ngModel)]="dateRange.startdate">
+          </mat-form-field>
+          <mat-form-field style="padding-left:5em" color="accent" class="dateForm">
+            <mat-label>End Date</mat-label>
+            <input matInput type="date" [(ngModel)]="dateRange.enddate">
+          </mat-form-field>
+        </div>
+      </div>
+    </modal-body>
+    <modal-footer>
+      <button mat-raised-button color="primary" class="exportButton" (click)="exportDetails()">Export <i [hidden]="!spinnerlogo"
+          class="fas fa-spin fa-spinner"></i></button>
+      <!-- <button mat-raised-button class="closeModalButton" (click)="closemodel()">Close</button> -->
+    </modal-footer>
+  </modal>
+
+
+  <!-- old modals -->
+  <!-- <modal #ExportCSV>
+    <modal-header>
+      <h4>Export CSV</h4>
+    </modal-header>
+    <modal-body>
+      <div>
+        <strong>Select What you need to Export</strong>
+      </div>
+      <div class="optionDiv">
+        <mat-form-field color="accent" appearance='outline' class="dateForm">
+          <mat-label>Inventory Start Date</mat-label>
+          <input matInput type="date" [(ngModel)]="dateRange.startdate">
+        </mat-form-field>
+        <mat-form-field color="accent" class="dateForm">
+          <mat-label>Inventory End Date</mat-label>
+          <input matInput type="date" [(ngModel)]="dateRange.enddate">
+        </mat-form-field>
+        <mat-radio-button style="margin-left: 6em" *ngIf="dateRange.startdate !==''" [value]="1" (click)="exportCSV()">Inventory</mat-radio-button>
+        <mat-radio-button style="margin-left: 6em" *ngIf="dateRange.startdate !==''" [value]="2" (click)="exportinventoryitemsCSV()">Inventory
+          Items
+        </mat-radio-button>
+      </div>
+    </modal-body>
+    <modal-footer>
+      <button mat-raised-button class="closeModalButton" (click)="closemodel()">Close</button>
+    </modal-footer>
+  </modal> -->
+
+
+</div>

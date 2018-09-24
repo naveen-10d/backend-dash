@@ -1,0 +1,144 @@
+<ion-header>
+    <ion-navbar class="header">
+        <button ion-button menuToggle>
+            <ion-icon class="menu-icon" name="menu"></ion-icon>
+        </button>
+        <div class="logo-container">
+            <span class="header-title">STAHLS</span>
+            <!-- <ion-icon class="noti-icon" name="notifications"></ion-icon> -->
+        </div>
+    </ion-navbar>
+</ion-header>
+
+
+<ion-content>
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull to refresh" refreshingSpinner="circles" refreshingText="Refreshing...">
+        </ion-refresher-content>
+    </ion-refresher>
+    <ion-card>
+        <ion-card-content class="">
+            <span class="orderid">{{order?.OrderNumber}}</span>
+            <ion-badge item-end>{{order?.StatusName}}</ion-badge>
+            <div class="details-box">
+                <span *ngIf="order.CompanyCode === null ">Location: - </span>
+                <span *ngIf="order.CompanyCode !== null ">Location: {{order?.CompanyCode}}</span>
+                <br/>
+                <span>PO: {{order?.PONumber}}</span>
+                <br/>
+                <span>Date: {{order?.OrderDate | date:'MM/dd/yyyy'}}</span>
+                <br/>
+                <span *ngIf="order?.Tickets === null">Ticket: 0</span>
+                <span *ngIf="order?.Tickets !== null">Ticket: {{order?.Tickets}}</span>
+            </div>
+            <!-- <ion-item>
+                Tracking Info
+            </ion-item> -->
+        </ion-card-content>
+    </ion-card>
+    <ion-item class="title-divider">
+        Tracking Info
+    </ion-item>
+    <ion-card>
+        <ion-card-content class="">
+            <div class="details-box">
+                <!-- <span *ngIf="order?.CompanyCode === null ">Location: - </span>
+                <span *ngIf="order?.CompanyCode !== null ">Location: {{order?.CompanyCode}}</span> -->
+                <!-- <br/> -->
+                <!-- <span>PO: {{order?.PONumber}}</span> -->
+                <br/>
+                <span>Order date: {{order?.OrderDate | date:'MM/dd/yyyy'}}</span>
+                <br/>
+                <span>Requested date: {{order?.RequiredDate | date: 'MM/dd/yyyy'}}</span>
+                <!-- <span *ngIf="order?.Tickets === null">Ticket: 0</span>
+                <span *ngIf="order?.Tickets !== null">Ticket: {{order?.Tickets}}</span> -->
+            </div>
+            <!-- <ion-item>
+                    Tracking Info
+                </ion-item> -->
+        </ion-card-content>
+    </ion-card>
+    <ion-item class="title-divider">
+        Customer
+    </ion-item>
+    <ion-card>
+        <ion-card-content class="">
+            <div class="details-box">
+                <span>ID: {{order?.CompanyID}}</span>
+                <br/>   
+                <span>Name: {{order?.CompanyCode}}</span>
+                <!-- <span>Location: DFC</span>
+                <span>PO: 43567679</span> -->
+                <!-- <br/> -->
+                <!-- <span>Date: 09/04/2017</span>
+                <span>Ticket: 2</span> -->
+            </div>
+            <!-- <ion-item>
+                            Tracking Info
+                        </ion-item> -->
+        </ion-card-content>
+    </ion-card>
+    <ion-item class="title-divider">
+        Items included in this order
+    </ion-item>
+    <ion-item class="qty-header">
+        <span style="margin-left: 15px;">Qty.</span>
+        <!-- <a class="sort-filter" (click)="filterOrder()"> Sort/Filter by</a> -->
+    </ion-item>
+    <ion-item class="qty-details" *ngFor="let details of orderitems;let i = index "  >
+        <div  >
+            <ion-grid>
+                <ion-row>
+                    <ion-col col-2 style="font-size: 30px;">
+                        {{details.QuantityRequested}}
+                    </ion-col>
+                    <ion-col col-10>
+                        Style: {{details.StyleNumber}}
+                        <ion-badge *ngIf="expandindex == 'null' || expandindex !== i " class="details-badge" item-end (click)="expandrow(details,i)">See more</ion-badge>
+                        <ion-badge *ngIf="expandindex == i" class="details-badge" item-end (click)="hideDetails()">Hide details</ion-badge>
+                        <br/> Color: {{details.StyleColor}}
+                        <br/> Price: {{details.UnitPrice}}
+                        <br/> Shipping Method:{{order?.Shipments[0]?.EdiCarrierSCAC}}
+                        <!-- <br/> Artwork Status:{{orderdetail.ArtworkStatus}} -->
+                    </ion-col>
+                </ion-row>
+                <div *ngFor="let orderdetail of salesorder  ">
+                    <ion-row *ngIf="expandindex == i">
+                        <br/>Description Summary:&nbsp;{{orderdetail.StyleName2}}
+                        <br/>Ship City:&nbsp;{{order?.Shipments[0]?.ShipToCity}}
+                        <br/>Shipping Info / Address&nbsp;{{order.ShipperNumber}}
+                        <br/>Quantity&nbsp;{{orderdetail.RequestCount}}
+                        <br/>Color Description:&nbsp;{{orderdetail.StyleColorDescription2}}
+                        <br/>Color:&nbsp;{{orderdetail.StyleColor2}}
+                        <br/>Size:&nbsp;{{orderdetail.GarmentSize}}
+                        <br/>Waybill:&nbsp;{{order?.Shipments[0]?.WayBill}}
+                    </ion-row>
+                </div>
+            </ion-grid>
+        </div>
+    </ion-item>
+    <ion-item class="title-divider">
+        Ticket associated with this order
+    </ion-item>
+    <ion-item>
+        <div *ngIf="order.Tickets === 1 ">
+            <button class="success">
+                <span>Created-By:&nbsp;{{createdby}}&nbsp;{{ticketdate | date:'MM/dd/yyyy'}}</span>
+            </button>
+            <br/>
+            <br/>
+            <button *ngIf="ticketstatus === 'Open'" class="delayed">
+                <span>Assigned-To:&nbsp;{{assignedto}}</span>
+            </button>
+            <button *ngIf="ticketstatus === 'close'" class="delayed">
+                <span>Assigned-To:&nbsp;{{assignedto}}</span>
+            </button>
+            <button *ngIf="ticketstatus === 'In Progress'" class="pending">
+                <span>Inprogress:&nbsp;{{assignedto}}</span>
+            </button>
+            <br/>
+            <br/>
+        </div>
+        <button ion-button class="btn-filter" (click)="gotoNewTicket()" outline>New Ticket</button>
+    </ion-item>
+</ion-content>

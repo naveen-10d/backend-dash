@@ -1,0 +1,73 @@
+ .dashCard {
+     background: #b8b9b857;
+ }
+
+ .header-title {
+     color: white;
+     font-weight: bold;
+     font-size: 25px;
+     font-family: Arial, Helvetica, sans-serif;
+ }
+
+ .dash-title {
+     color: black;
+     font-weight: bold;
+     font-size: 25px;
+     margin-left: 25px;
+ }
+
+ .card-title1 {
+     font-size: 2.0em;
+     font-weight: bold;
+     color: black;
+     text-align: center;
+ }
+
+ .track-badge {
+     display: flex;
+     margin-top: 10px;
+ }
+
+ page-orderComponent {
+    .header div {
+        background: #168bf1 !important;
+    }
+    
+     ion-searchbar {
+         width: 60%;
+         margin-left: 20px;
+     }
+     .searchbar-top {
+         display: flex;
+         z-index: 999;
+         position: fixed;
+         width: 100%;
+         a {
+             line-height: 4;
+             text-decoration: underline;
+         }
+     }
+     .searchbar-ios {
+         background: transparent;
+     }
+     .searchbar-md .searchbar-input {
+         border-radius: 20px;
+     }
+     .searchbar-ios .searchbar-input {
+         border-radius: 20px;
+     }
+     .btn-filter {
+        width: 99%;
+        // background: #F1F2F3;
+        height: 45px !important;
+        text-transform: inherit;
+        font-size: 18px;
+    }
+    .nextbutton{
+        float: right;
+     }
+    
+    .lists{
+        margin-top: 3em;
+    }
+ }

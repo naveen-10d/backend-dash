@@ -1,0 +1,25 @@
+{
+    "development": {
+        "host": "stahls.database.windows.net",
+        "port": "1433",
+        "username": "lou",
+        "password": "Stahls123",
+        "dialect": "mssql",
+        "name": "stahls",
+        "dialectOptions": {
+            "encrypt": true
+        }
+    },
+    "production": {
+        "host": "stahls.database.windows.net",
+        "port": "1433",
+        "username": "lou",
+        "password": "Stahls123",
+        "dialect": "mssql",
+        "name": "stahls",
+        "dialectOptions": {
+            "encrypt": true
+        }
+    },
+    "uploadlocation": "/opt/stahlsdata/"
+}

@@ -1,0 +1,40 @@
+page-orderfilter{
+    .item-inner {
+        border-bottom: 0px !important;
+    }
+
+    .filter-header {
+        margin-top: 10px;
+        text-align: center;
+        text-transform: uppercase;
+        font-weight: 500;
+        font-size: 20px;
+    }
+
+    .item-header{
+        font-size: 18px;
+        font-weight: 600;
+    }
+
+    ion-checkbox {
+        margin-right: 10px !important;
+    }
+
+    .radio-box{
+        display: flex;
+    }
+
+    input[type="radio"] {
+        transform: scale(1.2);
+        margin: 5px;
+        margin-right: 10px;
+    }
+
+    .btn-filter {
+        width: 90%;
+        height: 45px;
+        margin: 10px 20px;
+        text-transform: inherit;
+    }
+
+}

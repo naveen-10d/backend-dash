@@ -1,0 +1,558 @@
+<app-sidenav></app-sidenav>
+
+<div class="container">
+  <div>
+    <a class="bread-crumb" [routerLink]="['/ticket']">Tickets</a> > Ticket Detail
+  </div>
+  <br>
+  <br>
+  <br>
+  <!-- <div *ngIf="showDetails"> -->
+  <div>
+    <div class="row ticketDetailsRow">
+      <div class="col-lg-4 TicketIdMainDiv">
+        <div>
+          <span class="ticketID">Ticket ID: &nbsp;</span>
+          <span>{{ticketDetails?.id}}</span>
+        </div>
+        <div>
+          <span class="badge bg-success" style="width:62%;font-size: 100%">{{ticketDetails?.Status}}</span>
+          <!-- <a class="bread-crumb">{{ticketDetails?.Status}}</a> -->
+        </div>
+        <div>
+          <span class="ticketID">Creation Date: &nbsp;</span>
+          <span class="ticketIdValue">{{ticketDetails?.Date | date:'MM/dd/yyyy'}}</span>
+        </div>
+        <div>
+          <span class="ticketID">Priority: &nbsp;</span>
+          <span class="type" color="primary" style="cursor: inherit;">{{ticketDetails?.Type}}</span>
+        </div>
+        <div class="priority">
+          <span class="fa dropdown fa-caret-down fa-2x" *ngIf="ticketDetails?.Status !== 'Closed'" (click)="selectmodel()"></span>
+        </div>
+        <div class="col-lg-2" *ngIf="dropdown">
+          <mat-radio-button [checked]="tickettype" [value]="type" (change)="tickettypechange($event)">Regular</mat-radio-button>
+          <mat-radio-button [value]="type1" [checked]="tickettype1" (change)="tickettypechange($event)">Urgent</mat-radio-button>
+        </div>
+
+      </div>
+      <div class="col-lg-8">
+        <mat-card>
+          <div class="row createByMainDiv">
+            <div class="row createByFirstRow">
+              Create by:
+              <span>{{ticketDetails?.created_by?.firstname}}</span>&nbsp;&nbsp;
+              <span>Assigned to: </span>
+              <span *ngFor="let assigned of ticketDetails?.assigned_to">{{assigned?.firstname}} &nbsp;</span>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-lg-5">
+                <mat-select *ngIf="organizationname === 'Stahls'" placeholder="Organization" [(value)]="orgselected">
+                  <mat-option *ngFor="let org of allOrganization" (click)="filterOrg(orgselected)" [value]="org">
+                    {{ org?.organizationname }}
+                  </mat-option>
+                </mat-select>
+              </div>
+              <!-- <mat-select *ngIf="organizationname === 'Stahls'" placeholder="Assign Tickets" [(value)]="selected" multiple>
+                                <mat-option *ngFor="let user of userToDisplay" (click)="assignTicket(selected)" [value]="user">
+                                    {{ user.firstname }}
+                                </mat-option>
+                            </mat-select> -->
+              <!-- <mat-form-field class="CreatedByField">
+                                <mat-select (change)="filterOrg(selectedValues)" placeholder="Organization" multiple [formControl]="selectedValues">
+                                    <mat-option *ngFor="let org of allOrganization" [value]="org">
+                                        {{ org.organizationname }}
+                                    </mat-option>
+                                </mat-select>
+                              </mat-form-field> -->
+
+              <div class="col-lg-5">
+                <mat-select *ngIf="organizationname === 'Stahls'" placeholder="Assign Tickets" multiple [formControl]="selectedValues">
+                  <mat-option *ngFor="let user of userToDisplay" [value]="user">
+                    {{ user.firstname }}{{user.lastname}}
+                  </mat-option>
+                </mat-select>
+              </div>
+              <div class="col-lg-2">
+                <button mat-raised-button color="primary" *ngIf="organizationname === 'Stahls'" (click)="saveAssignedUserTicket()">Assign</button>
+              </div>
+
+
+              <div class="col-lg-5">
+                <mat-select *ngIf="organizationname !== 'Stahls'" placeholder="Organization" [(value)]="orgselected">
+                  <mat-option *ngFor="let org of myOrganization" (click)="filterOrg(orgselected)" [value]="org">
+                    {{ org.organizationname }}
+                  </mat-option>
+                </mat-select>
+              </div>
+              <div class="col-lg-5">
+                <mat-select *ngIf="organizationname !== 'Stahls'" placeholder="Assign Tickets" multiple [formControl]="selectedValues">
+                  <mat-option *ngFor="let user of userToDisplay" [value]="user">
+                    {{ user.firstname }}{{user.lastname}}
+                  </mat-option>
+                </mat-select>
+              </div>
+              <div class="col-lg-2">
+                <button mat-raised-button color="primary" *ngIf="organizationname !== 'Stahls'" [disabled]="ticketDetails?.Status === 'Closed'"
+                  (click)="saveAssignedUserTicket()">Assign</button>
+              </div>
+
+
+
+
+            </div>
+            <!-- <div class="createByNameDiv">{{ticketDetails.created_by.firstname}}</div> -->
+          </div>
+        </mat-card>
+      </div>
+      <!-- <div class="col-lg-4">
+                <mat-card>
+                    <div class="order-assign-box">
+                        <mat-select *ngIf="organizationname === 'Stahls'" placeholder="Organization" [(value)]="selected">
+                            <mat-option *ngFor="let org of allOrganization" (click)="filterOrg(selected)" [value]="org">
+                                {{ org.organizationname }}
+                              </mat-option>
+                        </mat-select>
+
+                        <mat-select *ngIf="organizationname === 'Stahls'" placeholder="Assign Tickets" [(value)]="selected">
+                            <mat-option *ngFor="let user of userToDisplay" (click)="assignTicket(selected)" [value]="user">
+                                {{ user.firstname }}
+                              </mat-option>
+                        </mat-select>
+                    </div>
+                    <div class="assignedToMainDiv">
+                        <div class="assignedToDiv">
+                            Assigned to:
+                        </div>
+                        <div class="assignedToNameDiv">{{ticketDetails.assigned_to?.firstname}}</div>
+                    </div>
+                </mat-card>
+            </div> -->
+    </div>
+    <div class="row downloadDiv">
+      <div style="margin-left:-44px">
+        <button class="closeButton1" mat-raised-button (click)="Showdetails()" [disabled]="ticketDetails?.Status === 'Closed'">Add
+          Orders
+        </button>
+      </div>
+      <div style="margin-left:-46px">
+        <button style="margin-left:52px" class="closeButton1" mat-raised-button (click)="Addcomment()" [disabled]="ticketDetails?.Status === 'Closed'">Add
+          Comment
+        </button>
+      </div>
+      <div class="col-lg-2" *ngIf="ticketDetails?.attachments?.length !== 0">
+        <button style="margin-left:-2px" mat-raised-button class="closeButton1" [ngClass]="ticketDetails?.attachments?.length == 0 ? 'disableDownload' : 'downloadButton'"
+          (click)="openDownloadAttachmentModal()">
+          <span class="fa fa-download faDownloadStyle"></span>&nbsp;Download attachments</button>
+      </div>
+      <div class="uploadFileDiv">
+        <!-- <div> -->
+        <button style="margin-left:84px" mat-raised-button (click)="fileInput.click()" [disabled]="ticketDetails?.Status === 'Closed'"
+          class="closeButton1">Upload</button>
+        <span style="visibility: hidden; position: absolute; overflow: hidden; width: 0px; height:0px;border:none;margin:0; padding:0">
+          <input type="file" #fileInput ng2FileSelect [uploader]="uploader" multiple />
+        </span>
+        <!-- <span *ngIf="uploader.queue.length !== 0">{{uploader.queue.length}} files</span> -->
+        <!-- </div> -->
+      </div>
+      <!-- <div class="col-lg-2">
+                <button style="margin-left:-23px" mat-raised-button class="update" (click)="Viewcomment()">Comments History</button>
+            </div> -->
+      <div class="rowButton">
+        <button style="margin-left:8%" mat-raised-button class="update" (click)="ViewHistory()">Ticket History</button>
+      </div>
+      <div class="rowButton" style="margin-left:20px;margin-right: 37px">
+        <div *ngIf="ticketDetails?.Status === 'Open' || ticketDetails?.Status === 'Assigned' || ticketDetails?.Status === 'Reopen'">
+          <button mat-raised-button class="closeButton" (click)="openCloseTicketModal()">Close Ticket
+          </button>
+        </div>
+        <div *ngIf="ticketDetails?.Status === 'Closed'">
+          <button mat-raised-button (click)="Reopenticket()" class="closeButton">Reopen Ticket</button>
+        </div>
+      </div>
+      <div class="rowButton">
+        <button style="margin-left:-13px" mat-raised-button class="update" [disabled]="ticketDetails?.Status === 'Closed'"
+          *ngIf=" uploader.queue.length != 0 || (selected?.length !== 0 && selected !== ticketDetails?.Type)" (click)="fileupload()">Update</button>
+      </div>
+
+      <!-- *ngIf="ticketDetails?.Status !== 'Closed'" -->
+    </div>
+    <br>
+    <div class="row">
+      <mat-card class="descriptionCard">
+        <div>
+          <span>
+            <strong>Description:&nbsp;</strong>
+          </span>
+          <span>{{ticketDetails?.description}}</span>
+        </div>
+        <div *ngIf="ticketDetails?.Status === 'Closed'">
+          <span>
+            <sup>**</sup><strong>Closed By:&nbsp;</strong>
+          </span>
+          <span>{{closedby}}</span>
+          &nbsp;
+          <span>
+            <strong>Closed At:&nbsp;</strong>
+          </span>
+          <span>{{closedate | amTz:"America/New_York":true}}</span>
+          &nbsp;
+          <span>
+            <strong>Closing Remarks:&nbsp;</strong>
+          </span>
+          <span>{{ticketDetails?.CloseReason?.Reason}}</span>
+        </div>
+      </mat-card>
+    </div>
+    <!-- <div style="margin-top: -1em" class="row DateMainDiv">
+            <div class="row">
+                <div class="col-lg-1">
+                    <span style="font-size: 20px;">{{ticketDetails?.Date | date:'MM/dd/yyyy'}}</span>
+                </div>
+                <div class="col-lg-1">
+                    <button mat-raised-button class="type" color="primary" style="cursor: inherit;">{{ticketDetails?.Type}}</button>
+                </div>
+                <div class="col-lg-1 priority">
+                    <span class="col-lg-5 fa dropdown fa-caret-down fa-2x" *ngIf="ticketDetails?.Status !== 'Closed'" (click)="selectmodel()"></span>
+                </div>
+                <div class="col-lg-1" *ngIf="dropdown">
+                    <mat-radio-button style="margin-top: 3em;margin-left: -2em" [checked]="tickettype" [value]="type" (change)="tickettypechange($event)">Regular</mat-radio-button>
+                    <mat-radio-button style="margin-left: -2em" [value]="type1" [checked]="tickettype1" (change)="tickettypechange($event)">Urgent</mat-radio-button>
+                </div>
+            </div>
+        </div> -->
+    <div *ngIf="ticketcomments !==0">
+      <div class="ticket-container mat-elevation-z8 col-xs-12">
+        <mat-table [dataSource]="CommentsSource" matSort matSortActive="CommentDate" matSortDirection="desc"
+          matSortDisableClear>
+          <ng-container matColumnDef="Comments">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Comments </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.Comments}} </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="CommentDate">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Comment Date </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.CommentDate | amTz:"America/New_York":true}} </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="CommentUserName">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Updated By </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.CommentUserName}} </mat-cell>
+          </ng-container>
+          <mat-header-row style="width: 100%" *matHeaderRowDef="displayedColumns1"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns1;">
+          </mat-row>
+        </mat-table>
+        <mat-paginator [pageSize]="10" [showFirstLastButtons]="true">
+        </mat-paginator>
+
+      </div>
+    </div>
+
+
+    <!-- <div class="row">
+            <mat-card class="detailCard">
+                <div class="row">Comments:
+                    <span>{{ticketcomments.Comments}}</span>
+                </div>
+                <div class="row">Updated By:
+                    <span>{{ticketcomments.CommentDate | date: 'MM/dd/yyyy'}} &nbsp;</span>- {{UsersList.username}}
+                </div>
+            </mat-card>
+        </div> -->
+    <!-- <div class="row ">
+            <div class="col-lg-2" style="margin-top:2%">
+                <button mat-raised-button class="update" (click)="ViewHistory()">Ticket History</button>
+            </div>
+        </div> -->
+    <!-- <div class="row closeTicketButtonDiv">
+        </div> -->
+    <br>
+    <br>
+    <br>
+  </div>
+  <!-- <div class="row">
+        <div class="col-md-10 orderTicketText">Orders on this ticket</div>
+        <div *ngIf="showDetails" class="col-md-2" (click)="showDetails = false">
+            <u class="booleanDetails">Hide details</u>
+        </div>
+        <div *ngIf="!showDetails" class="col-md-2" (click)="showDetails = true">
+            <u class="booleanDetails">Show details</u>
+        </div>
+    </div> -->
+  <br>
+  <div style="margin-top: -5em;margin-left: 50px;width: 80%" class="ticket-container mat-elevation-z8 col-xs-12">
+
+    <mat-table [dataSource]="dataSource" matSort matSortActive="OrderNumber" matSortDirection="desc"
+      matSortDisableClear>
+
+      <ng-container matColumnDef="OrderNumber">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Number </mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{row.OrderNumber}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="Location">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Location </mat-header-cell>
+        <mat-cell *matCellDef="let row">
+          <div *ngIf="row.CompanyCode == ''">-</div>
+          <div *ngIf="row.CompanyCode != ''">{{row.CompanyCode}}</div>
+        </mat-cell>
+      </ng-container>
+
+
+      <ng-container matColumnDef="PO#">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> PO# </mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{row.PONumber}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="Requested">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Requested </mat-header-cell>
+        <mat-cell *matCellDef="let row" [style.color]="green"> {{row.RequiredDate | date:'MM/dd/yyyy'}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="Status">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Status </mat-header-cell>
+        <mat-cell *matCellDef="let row">{{row.StatusName}}
+          <!-- <span *ngIf="row.status=='NEW'" class="badge blue">{{row.status}}</span>
+          <span *ngIf="row.status=='In Progress'" class="badge green">{{row.status}}</span>
+          <span *ngIf="row.status=='Delayed'" class="badge orange">{{row.status}}</span>
+          <span *ngIf="row.status=='Received'" class="badge dark">{{row.status}}</span>
+          <span *ngIf="row.status=='Shipped'" class="badge brown">{{row.status}}</span> -->
+
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="Tickets">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Tickets </mat-header-cell>
+        <mat-cell *matCellDef="let row" [style.color]="green">{{row.Tickets}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="Forecasted">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Forcasted </mat-header-cell>
+        <mat-cell *matCellDef="let row" [style.color]="blue">
+          <div *ngIf="row.ForecastFinish == null">-</div>
+          <div *ngIf="row.ForecastFinish != null"> {{row.ForecastFinish | date:'MM/dd/yyyy'}} </div>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;">
+      </mat-row>
+    </mat-table>
+
+    <!-- <mat-paginator #paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 20]" [showFirstLastButtons]="true">
+    </mat-paginator> -->
+  </div>
+
+</div>
+
+
+<modal #Ordernumbers>
+  <modal-header>
+    <h4>Order Number</h4>
+  </modal-header>
+  <modal-body>
+    <div class="row searchFullDiv">
+      <div class="search">
+        <span class="fa fa-search faStyle"></span>
+        <mat-form-field class="example-full-width searchbox">
+          <input matInput type="text" placeholder="Search" #input>
+        </mat-form-field>
+      </div>
+    </div>
+    <div>
+      <strong>Choose the Order Number:</strong>
+    </div>
+    <div class="optionDiv">
+      <!-- <div *ngFor="let number of OrderNumber">
+                <mat-checkbox>{{number}}
+                </mat-checkbox>
+            </div> -->
+      <div class="ticket-container col-xs-12" style="width:25em;border:1px solid black">
+        <mat-table [dataSource]="OrdersSource" matSort matSortActive="OrderNumber" matSortDirection="desc"
+          matSortDisableClear>
+          <ng-container matColumnDef="OrderNumber">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Order Number </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.OrderNumber}} </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="select">
+            <mat-header-cell *matHeaderCellDef> </mat-header-cell>
+            <mat-cell *matCellDef="let row">
+              <mat-checkbox [checked]="isSelected(row.OrderID)" (click)="$event.stopPropagation()" (change)="$event ? toggle(row) : null">
+              </mat-checkbox>
+            </mat-cell>
+          </ng-container>
+
+          <mat-header-row *matHeaderRowDef="displayedColumns2"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns2;">
+          </mat-row>
+        </mat-table>
+        <mat-paginator #paginator (page)="loadDataPage()" [length]="OrdersSource.countValue" [pageSize]="10"
+          [showFirstLastButtons]="true">
+        </mat-paginator>
+      </div>
+    </div>
+  </modal-body>
+  <modal-footer>
+    <button mat-raised-button class="closeModalButton" (click)="Hidedetails()">Close</button>
+    <button mat-raised-button color="primary" (click)="AddOrder()">Add Orders</button>
+  </modal-footer>
+</modal>
+
+<modal #closeTicket>
+  <modal-header>
+    <h4>Close Ticket</h4>
+  </modal-header>
+  <modal-body>
+    <div>
+      <strong>You are closing this ticket because:</strong>
+    </div>
+    <div class="optionDiv">
+      <mat-radio-group [(ngModel)]="closedMessage">
+        <mat-radio-button *ngFor="let reason of Reason" name="more_options" [value]="reason">
+          {{reason.Reason}}
+        </mat-radio-button>
+      </mat-radio-group>
+    </div>
+  </modal-body>
+  <modal-footer>
+    <button mat-raised-button class="closeModalButton" (click)="closeTicketOption()">Close Ticket</button>
+  </modal-footer>
+</modal>
+
+<modal #Download>
+  <modal-header>
+    <h4>Download Attachments</h4>
+  </modal-header>
+  <modal-body>
+    <!-- <div>
+      <strong></strong>
+    </div> -->
+    <div class="optionDiv">
+      <div class="ticket-container col-xs-12" style="width:25em;border:1px solid black">
+        <mat-table [dataSource]="ticketattachmentSource" matSort>
+          <ng-container matColumnDef="FileName">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> File name </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.filename}} </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="select">
+            <mat-header-cell *matHeaderCellDef> </mat-header-cell>
+            <mat-cell *matCellDef="let row">
+              <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? SelectedAttachment(row) : null">
+              </mat-checkbox>
+            </mat-cell>
+          </ng-container>
+
+          <mat-header-row *matHeaderRowDef="displayedColumns4"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns4;">
+          </mat-row>
+        </mat-table>
+      </div>
+    </div>
+  </modal-body>
+  <modal-footer>
+    <button mat-raised-button class="closeModalButton" (click)="download()">Download Attachment</button>
+    <button mat-raised-button class="closeModalButton" (click)="DeleteAttachment()">Delete Attachment</button>
+  </modal-footer>
+</modal>
+
+<modal #addcomment>
+  <modal-header>
+    <h4>Add Comment</h4>
+  </modal-header>
+  <modal-body>
+    <!-- <div>
+                <strong>You are closing this ticket because:</strong>
+            </div> -->
+    <div class="optionDiv">
+      <textarea rows="5" class="tickettextarea" placeholder="Enter the Description here" [(ngModel)]='ticket.Comments'></textarea>
+
+      <!-- <p>{{today | date:'MM-dd-yyyy'}}</p> -->
+    </div>
+    <!-- <div>
+            <mat-form-field appearance='outline'>
+                <input matInput [(ngModel)]="currentdate " />
+            </mat-form-field>
+            <mat-form-field appearance='outline'>
+                <input matInput [(ngModel)]='Username' />
+            </mat-form-field>
+        </div> -->
+  </modal-body>
+  <modal-footer>
+    <button mat-raised-button class="closeModalButton" [disabled]="ticket.Comments === ''" (click)="closecomment()">Add</button>
+    <button mat-raised-button class="closeModalButton" (click)="cancelcomment()">Cancel</button>
+  </modal-footer>
+</modal>
+
+<!-- <modal #ViewCommentsTable>
+    <modal-header>
+        <h4>Comments Table</h4>
+    </modal-header>
+    <modal-body>
+        <span>
+            <strong>Comments Table:&nbsp;</strong>
+        </span>
+        <div class="ticket-container mat-elevation-z8 col-xs-12">
+            <mat-table [dataSource]="CommentsSource" matSort>
+                <ng-container matColumnDef="Comments">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> Comments </mat-header-cell>
+                    <mat-cell *matCellDef="let row"> {{row.Comments}} </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="Date">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> CommentDate </mat-header-cell>
+                    <mat-cell *matCellDef="let row"> {{row.CommentDate}} </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="Username">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> Username </mat-header-cell>
+                    <mat-cell *matCellDef="let row"> {{row.CommentUserName}} </mat-cell>
+                </ng-container>
+                <mat-header-row style="width: 100%" *matHeaderRowDef="displayedColumns1"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns1;">
+                </mat-row>
+
+            </mat-table>
+
+        </div>
+
+    </modal-body>
+    <modal-footer>
+        <button mat-raised-button class="closeModalButton" (click)="cancel()">Cancel</button>
+    </modal-footer>
+</modal> -->
+
+<modal #TicketHistoryLog>
+  <modal-header>
+    <h4>Ticket History Log</h4>
+  </modal-header>
+  <modal-body>
+    <div class="ticket-container mat-elevation-z8 col-xs-12">
+      <mat-table [dataSource]="tickethistorySource" matSort>
+        <ng-container matColumnDef="Date">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Date </mat-header-cell>
+          <mat-cell *matCellDef="let row"> {{row.Date | amTz:"America/New_York":true}} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="User">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> User </mat-header-cell>
+          <mat-cell *matCellDef="let row"> {{row.CreatedBy}} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="AssignedTo">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> AssignedTo </mat-header-cell>
+          <mat-cell *matCellDef="let row"> {{row.AssignedTo}} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="LogDescription">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> LogDescription </mat-header-cell>
+          <mat-cell *matCellDef="let row"> {{row.LogDescription}} </mat-cell>
+        </ng-container>
+
+        <mat-header-row style="width: 100%" *matHeaderRowDef="displayedColumns3"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns3;">
+        </mat-row>
+
+      </mat-table>
+
+    </div>
+
+  </modal-body>
+  <modal-footer>
+    <button mat-raised-button class="closeModalButton" (click)="CloseTicketHistory()">Close</button>
+  </modal-footer>
+</modal>

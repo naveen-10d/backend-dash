@@ -1,0 +1,122 @@
+<app-sidenav></app-sidenav>
+<div class="container">
+  <h1>
+    <span class="title">
+      <b>Invoices</b>
+    </span>
+  </h1>
+
+  <mat-card class="searchbar row">
+    <div class="searchOrderDiv">
+        <div>
+            <span class="fa fa-search faStyle"></span>
+            <input class="txtcolor" type="text" placeholder="Search" #input>
+          </div>
+      <div class="pull-right">
+        <i class="filterName">Filter by</i>
+        <span>
+          <mat-form-field class="ticketField">
+            <mat-select placeholder="Items" multiple [formControl]="filterItems" (change)="ItemsFilter()">
+              <mat-option *ngFor="let item of ItemsValue" [value]="item">{{item}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field class="statusField">
+            <mat-select placeholder="Status" multiple [formControl]="filterStatus" (change)="StatusFilter()">
+              <mat-option *ngFor="let status of filterValue?.status" [value]="status.StatusName">{{status?.StatusName}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </span>
+      </div>
+    </div>
+
+  </mat-card>
+
+  <br>
+  <div class="ticket-container mat-elevation-z8 col-xs-12">
+
+    <mat-table [dataSource]="dataSource" matSort matSortActive="InvoiceNumber" matSortDirection="desc" matSortDisableClear>
+
+      <ng-container matColumnDef="InvoiceNumber">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Invoice Number </mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{row.InvoiceNumber}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="InvoiceDate">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Date </mat-header-cell>
+        <mat-cell *matCellDef="let row">
+          {{row.InvoiceDate | date:'MM/dd/yyyy'}}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="OrderID">
+        <mat-header-cell class="headerNoAllowed" *matHeaderCellDef> OrderID </mat-header-cell>
+        <mat-cell *matCellDef="let row" [style.color]="green">
+        <div *ngIf="row?.SalesOrder?.OrderID == null">-</div>
+        <div *ngIf="row?.SalesOrder?.OrderID != null">{{row?.SalesOrder?.OrderID}}</div>
+         </mat-cell>
+        <!-- <mat-cell *matCellDef="let row" [style.color]="green" *ngIf="row?.SalesOrder?.OrderID == null">- </mat-cell> -->
+      </ng-container>
+
+      <ng-container matColumnDef="Items">
+        <mat-header-cell class="headerNoAllowed" *matHeaderCellDef> Items </mat-header-cell>
+        <mat-cell *matCellDef="let row" [style.color]="green"> {{row?.InvoiceDetails?.length}} </mat-cell>
+      </ng-container>
+
+
+      <ng-container matColumnDef="TotalPrice">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Total </mat-header-cell>
+        <mat-cell *matCellDef="let row" [style.color]="blue"> {{row.TotalPrice}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="StatusName">
+        <mat-header-cell class="headerNoAllowed" *matHeaderCellDef> Status </mat-header-cell>
+        <mat-cell *matCellDef="let row">
+            <div *ngIf="row?.SalesOrder?.StatusName == null">-</div>
+          <div class="badge blue" *ngIf="row?.SalesOrder?.StatusName != null">{{row?.SalesOrder?.StatusName}}</div>
+        </mat-cell>
+      </ng-container>
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;" matRipple class="element-row" [cdkDetailRow]="row" [cdkDetailRowTpl]="tpl">
+      </mat-row>
+    </mat-table>
+
+    <div class="page-no">Page.No: {{pageNo}}</div>
+    <mat-paginator #paginator [length]="dataSource?.countValue" [pageSize]="25" [pageSizeOptions]="[25, 50, 100]"
+      [showFirstLastButtons]="true">
+    </mat-paginator>
+  </div>
+
+
+  <ng-template #tpl let-element>
+    <div style="display:flex;vertical-align:middle;background-color: gainsboro;font:initial">
+      <div style="padding:1%;width:100%">
+        <table cellspacing="10">
+          <tr class="header">
+            <th>Item</th>
+            <th>Style#</th>
+            <th>Color</th>
+            <th>Size</th>
+            <th>Quantity</th>
+            <th>Waybill</th>
+          </tr>
+          <tbody class=tablebody>
+            <tr *ngFor='let items of element.InvoiceDetails'>
+              <td class="content">{{items.DetailManufactureNumber}}</td>
+              <td>{{items.StyleNumber}}</td>
+              <td>{{items.StyleColor}}</td>
+              <td>{{items.GarmentSize}}</td>
+              <td>{{items.UnitPrice}}</td>
+              <td>{{items.Shipment.WayBill}}</td>
+            </tr>
+
+          </tbody>
+
+        </table>
+      </div>
+    </div>
+  </ng-template>
+
+
+
+</div>

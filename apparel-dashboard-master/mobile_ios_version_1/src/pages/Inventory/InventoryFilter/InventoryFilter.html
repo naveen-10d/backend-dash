@@ -1,0 +1,72 @@
+<ion-header>
+    <ion-navbar class="header">
+        <button ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+        <div class="logo-container">
+            <span class="header-title">STAHLS</span>
+            <!-- <ion-icon class="noti-icon" name="notifications"></ion-icon> -->
+        </div>
+    </ion-navbar>
+</ion-header>
+
+<ion-content>
+    <ion-item class="filter-header">
+        Filter Inventory By:
+    </ion-item>
+
+    <ion-item class="item-header">
+        Style
+    </ion-item>
+    <ion-item>
+        <ion-label>Style</ion-label>
+        <ion-select [(ngModel)]="SelectedDescription" multiple="true">
+            <ion-option *ngFor="let assigned of description" [value]="assigned">
+                {{assigned}}
+            </ion-option>
+        </ion-select>
+    </ion-item>
+    <ion-item class="item-header">
+        Color
+    </ion-item>
+    <ion-item>
+        <ion-label>Color</ion-label>
+        <ion-select [(ngModel)]="SelectedColor" multiple="true">
+            <ion-option *ngFor="let created of color" [value]="created">
+                {{created}}
+            </ion-option>
+        </ion-select>
+    </ion-item>
+    <!-- <ion-item class="item-header">
+        Size
+    </ion-item>
+    <ion-item>
+        <ion-label>Size</ion-label>
+        <ion-select [(ngModel)]="SelectedSize" multiple="true">
+            <ion-option *ngFor="let garmentsize of size" [value]="garmentsize">
+                {{garmentsize}}
+            </ion-option>
+        </ion-select>
+    </ion-item> -->
+
+    <ion-item class="item-header">
+        Status
+    </ion-item>
+    <ion-item *ngFor="let st of status; let i=index;">
+        <ion-label>{{st}}</ion-label>
+        <ion-checkbox (click)="getValue(st)"></ion-checkbox>
+    </ion-item>
+    <ion-item class="item-header">Sort by</ion-item>
+    <ion-list radio-group [(ngModel)]="selectedSortValue">
+        <ion-item>
+            <ion-label>Color</ion-label>
+            <ion-radio value="StyleColor"></ion-radio>
+        </ion-item>
+        <ion-item>
+            <ion-label>Date</ion-label>
+            <ion-radio value="DataExportDate"></ion-radio>
+        </ion-item>
+    </ion-list>
+
+    <button ion-button class="btn-filter" outline (click)="selectedoption()">Filter and Sort </button>
+</ion-content>

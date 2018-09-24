@@ -1,0 +1,71 @@
+<ion-header>
+    <ion-navbar class="header" hideBackButton>
+        <button ion-button menuToggle>
+            <ion-icon class="menu-icon" name="menu"></ion-icon>
+        </button>
+        <div class="logo-container">
+            <!-- <img height="40" class="nav-logo" src="assets/imgs/stahls.png"> -->
+            <span class="header-title">STAHLS</span>
+            <!-- <button ion-button> -->
+            <!-- <ion-icon class="noti-icon" name="notifications"></ion-icon> -->
+            <!-- </button>   -->
+        </div>
+    </ion-navbar>
+</ion-header>
+<ng4-loading-spinner>
+</ng4-loading-spinner>
+
+<ion-content class="page-con">
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull to refresh" refreshingSpinner="circles" refreshingText="Refreshing...">
+        </ion-refresher-content>
+    </ion-refresher>
+    <span class="dash-title">Inventory</span>
+    <div class="searchbar-top">
+        <ion-searchbar [(ngModel)]="searchTerm" type="search" (ionInput)="setFilteredItems()"></ion-searchbar>
+        <a (click)="filterInventory()"> Filter/Sort by</a>
+    </div>
+    <ion-list class="lists">
+        <ion-item *ngFor='let detail of inventory;let i = index'>
+            <ion-card>
+                <ion-card-content class="dashCard">
+                    <ion-card-title>
+                        <h3>
+                            <b>{{detail.FinishedGoodsID}}</b>
+                        </h3>
+                        <ion-badge item-end>{{detail.StatusName}}</ion-badge>
+                        <ion-badge *ngIf="expandindex == 'null' || expandindex !== i " class="details-badge" item-end (click)="expandrow(detail,i)">See
+                            more</ion-badge>
+                        <ion-badge *ngIf="expandindex == i" class="details-badge" item-end (click)="hideDetails()">Hide details</ion-badge>
+                    </ion-card-title>
+                    <ion-list>
+                        <span>Style: {{detail.StyleNumber}} </span>
+                        <br/>
+                        <span>StyleOption: {{detail.StyleOption}}</span>
+                        <br/>
+                        <span>Color: {{detail.StyleColor}} </span>
+                        <br/>
+                        <span>Size: {{detail.GarmentSize}} </span>
+                    </ion-list>
+                    <div *ngFor='let items of inventoryitems'>
+                        <ion-row *ngIf="expandindex == i">
+                            <br/>Transaction ID:&nbsp;{{items.TransactionID}}
+                            <br/>Style Number:&nbsp;{{items.StyleNumber}}
+                            <br/>Color:&nbsp;{{items.StyleColor}}
+                            <br/>Size:&nbsp;{{items.GarmentSize}}
+                            <br/>Adjustment Reason:&nbsp;{{items.TransactionReasonCode}}
+                            <br/>Adjustment Reason2:&nbsp;{{items.TransactionReasonCode2}}
+                            <br/>Date:&nbsp;{{items.DataExportDate | date:'MM/dd/yyyy'}}
+                            <br/>Quantity:&nbsp;{{items.Quantity}}
+                        </ion-row>
+                    </div>
+                </ion-card-content>
+            </ion-card>
+        </ion-item>
+        <button ion-button *ngIf="inventory !==undefined" class="btn-filter" ion-button (click)="doInfinite()">Next</button>
+            <!-- <ion-icon style="font-size:6em;float: right;" name="arrow-dropup"  (click)="scrollToTop()"></ion-icon>
+            &nbsp;
+            <ion-icon style="font-size:6em;float: right;" name="arrow-dropdown"  (click)="scrollToBottom()"></ion-icon>     -->
+    </ion-list>
+
+</ion-content>

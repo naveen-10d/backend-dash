@@ -1,0 +1,46 @@
+page-orderDetails {
+    .orderid {
+        font-size: 18px;
+        color: black;
+        font-weight: bold;
+    }
+    .badge {
+        border-radius: 2px;
+        padding: 6px 12px;
+    }
+    .card{
+        box-shadow: none;
+    }
+    .item-inner{
+        border-bottom: 0px;
+    }
+    .title-divider{
+        background: #b8b9b857;
+        text-align: center;
+        font-size: 18px;
+        font-weight: bold;
+    }
+    .sort-filter{
+        float: right;
+        margin-right: 15px;
+        text-decoration: underline;
+        font-size: 14px;
+    }
+    .qty-header .item-inner {
+        border-bottom: 0px !important;
+    }
+    .details-badge.badge {
+        padding: 3px 8px;
+    }
+    .qty-details .item-inner{
+        border-bottom: 2px solid black !important;
+    }
+
+    .btn-filter {
+        width: 99%;
+        background: #F1F2F3;
+        height: 45px !important;
+        text-transform: inherit;
+        font-size: 18px;
+    }
+}

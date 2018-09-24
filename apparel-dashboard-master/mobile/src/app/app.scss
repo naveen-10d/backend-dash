@@ -1,0 +1,55 @@
+.icon-bar {
+  width: 30px;
+  height: 5px;
+  background-color: white;
+  margin: 4px 0;  
+}
+
+.bar-button-menutoggle { 
+  color: white; 
+} 
+
+.navbar-header {
+  display: flex;
+  height: 36px;
+}
+
+.navbar-toggle {
+  position: fixed;
+  left: 20px;
+}
+
+.bell {
+  position: fixed;
+  right: 15px;
+  color: white;
+  font-size: 29px;
+  margin-top: -5px;
+}
+
+.head-logo {
+  position: fixed;
+  left: 43%;
+  color: white;
+}
+
+.header div {
+  background: #333333;
+}
+
+.ion-menu {
+  color: white;
+}
+
+.bar-button-menutoggle {
+  margin-bottom: 6px;
+}
+
+.bar-button-menutoggle ion-icon {
+  font-size: 4rem;
+  font-weight: 600;
+}
+
+.page-con .scroll-content {
+  margin-top: 75px !important;
+}

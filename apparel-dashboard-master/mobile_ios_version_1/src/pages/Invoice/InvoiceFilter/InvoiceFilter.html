@@ -1,0 +1,70 @@
+<ion-header>
+    <ion-navbar class="header">
+        <button ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+        <div class="logo-container">
+            <span class="header-title">STAHLS</span>
+            <!-- <ion-icon class="noti-icon" name="notifications"></ion-icon> -->
+        </div>
+    </ion-navbar>
+</ion-header>
+
+<ion-content>
+    <ion-item class="filter-header">
+        Filter Invoice By:
+    </ion-item>
+
+    <ion-item class="item-header">
+        ShipmentID
+    </ion-item>
+    <ion-item>
+        <ion-label>ShipmentID</ion-label>
+        <ion-select [(ngModel)]="Invnumber" multiple="true">
+            <ion-option *ngFor="let invoice of ShipmentId" [value]="invoice">
+                {{invoice}}
+            </ion-option>
+        </ion-select>
+    </ion-item>
+    <!-- <ion-item class="item-header">
+            Order Id
+        </ion-item>
+        <ion-item>
+            <ion-label>Order Id</ion-label>
+            <ion-select [(ngModel)]="Idnumber" multiple="true">
+                <ion-option *ngFor="let ordernumber of orderid" [value]="ordernumber">
+                    {{ordernumber}}
+                </ion-option>
+            </ion-select>
+        </ion-item> -->
+
+
+    <ion-item class="item-header">
+        Status
+    </ion-item>
+    <ion-item *ngFor="let st of orderstatus; let i=index;">
+        <ion-label>{{st}}</ion-label>
+        <ion-checkbox (click)="getValue(st)"></ion-checkbox>
+    </ion-item>
+    <ion-item class="item-header">Sort by</ion-item>
+    <ion-list radio-group [(ngModel)]="selectedSortValue">
+        <ion-item>
+            <ion-label>Status</ion-label>
+            <ion-radio value="status"></ion-radio>
+        </ion-item>
+        <ion-item>
+            <ion-label>Date</ion-label>
+            <ion-radio value="date"></ion-radio>
+        </ion-item>
+        <ion-item>
+            <ion-label>Ascending Order</ion-label>
+            <ion-radio value="ASC"></ion-radio>
+        </ion-item>
+        <ion-item>
+            <ion-label>Descending Order</ion-label>
+            <ion-radio value="DESC"></ion-radio>
+        </ion-item>
+    </ion-list>
+
+    <button ion-button class="btn-filter" outline (click)="selectedoption()">Filter and Sort </button>
+</ion-content>

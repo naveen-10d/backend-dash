@@ -1,0 +1,7 @@
+<ion-menu type="overlay" persistent="true" [content]="content" (ionClose)="collapseMenuOptions()"> 
+    <ion-content> 
+      <side-menu-content menuClose [settings]="sideMenuSettings" [options]="options" (selectOption)="selectOption($event)"></side-menu-content> 
+    </ion-content> 
+</ion-menu>
+
+<ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>

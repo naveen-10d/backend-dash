@@ -1,0 +1,55 @@
+<ion-header>
+    <ion-navbar class="header" hideBackButton>
+        <button ion-button menuToggle>
+            <ion-icon class="menu-icon" name="menu"></ion-icon>
+        </button>
+        <div class="logo-container">
+            <span class="header-title">STAHLS</span>
+            <!-- <ion-icon class="noti-icon" name="notifications"></ion-icon> -->
+        </div>
+    </ion-navbar>
+</ion-header>
+<ng4-loading-spinner>
+</ng4-loading-spinner>
+
+
+<ion-content class="page-con">
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull to refresh" refreshingSpinner="circles" refreshingText="Refreshing...">
+        </ion-refresher-content>
+    </ion-refresher>
+    <span class="dash-title">Purchase Orders</span>
+    <div class="searchbar-top">
+        <ion-searchbar [(ngModel)]="searchTerm" (ionInput)="setFilteredItems()"></ion-searchbar>
+        <a (click)="filterOrder()"> Filter/Sort by</a>
+    </div>
+    <ion-list class="lists">
+        <ion-item *ngFor="let item of orderslist">
+            <ion-card (click)="displayOrderDetails(item)">
+                <ion-card-content class="dashCard">
+                    <ion-card-title>
+                        <h3>
+                            <b>{{item.ManufactureNumber}}</b>
+                        </h3>
+                        <ion-badge item-end>{{item.VendorPO?.StatusName}}</ion-badge>
+                    </ion-card-title>
+                    <ion-list>
+                        <br/>
+                        <span>Location: {{item.CompanyCode}}</span>
+                        <br/>
+                        <span>Customer: {{item.customer}}</span>
+                        <br/>
+                        <span>Date: {{item.VendorPO?.FinishDate | date: 'MM/dd/yyyy'}}</span>
+                        <br/>
+                        <span>Tickets: {{item.SalesOrder?.Tickets}}</span>
+                        <br/>
+                        <span>Forcasted Arrival: {{item.SalesOrder?.ForecastFinish | date: 'MM/dd/yyyy'}}</span>
+                    </ion-list>
+                </ion-card-content>
+            </ion-card>
+        </ion-item>
+    </ion-list>
+
+
+
+</ion-content>

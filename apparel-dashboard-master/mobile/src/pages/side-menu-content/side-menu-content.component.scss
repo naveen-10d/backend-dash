@@ -1,0 +1,92 @@
+
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+.sidenav {
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #003360;
+  overflow-x: hidden;
+  padding-top: 20px;
+}
+
+.sidenav a {
+  padding: 6px 8px 6px 16px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+}
+
+.sidenav a:hover {
+  color: #f1f1f1;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+
+.logout {
+  text-decoration: underline;
+}
+
+.avatar-center {
+  text-align: -webkit-center !important;
+  margin-top: 15%
+}
+
+.avatar-text{
+  color: white;
+  margin-top: 5%;
+  font-weight: 800;
+}
+
+.avatar-role{
+  color: white;
+}
+
+.menulist{
+  background: #135193;
+  border-radius: 1px;
+  height: 10%;
+  border-color: #135193;
+  border-style: solid;
+  border-width: 1px;
+  color: white;
+  padding-top: 5%;
+  padding-bottom: 5%;
+  
+}
+
+.menulist:hover{
+  background: #D0282F;
+  color: white
+}
+
+.menulist:focus{
+  background: #D0282F;
+  color: white
+}
+
+.menu-text{
+  text-align: left;
+  padding-left: 20px;
+}
+
+.menu{
+  margin-top: 8%
+}
+
+.sidebar {
+  height: 50px;
+}
+
+.menu-inner {
+  width: 250px;
+}

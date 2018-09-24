@@ -1,0 +1,46 @@
+<ion-header>
+        <ion-navbar class="header">
+                <button ion-button menuToggle>
+                        <ion-icon class="menu-icon" name="menu"></ion-icon>
+                </button>
+                <div class="logo-container">
+                        <span class="header-title">STAHLS</span>
+                        <!-- <ion-icon class="noti-icon" name="notifications"></ion-icon> -->
+                </div>
+        </ion-navbar>
+</ion-header>
+<ng4-loading-spinner>
+</ng4-loading-spinner>
+
+<ion-content>
+        <ion-item>
+                <span>
+                        <h1>
+                                <b>Add New Ticket</b> - Step 2</h1>
+                </span>
+        </ion-item>
+
+        <ion-item>
+                <h2>
+                        <b>Orders associated to this ticket</b>
+                </h2>
+        </ion-item>
+        <br>
+        <br>
+        <ion-item class="badg-item">
+                <ion-badge class="badge" item-start color="secondary" *ngFor="let order of ticket.order">{{order.OrderID}}</ion-badge>
+                <!-- <ion-badge class="badge" item-start color="secondary">67890</ion-badge> -->
+        </ion-item>
+
+        <ion-item class="text-item">
+                <ion-textarea class="text-area" maxLength="3000" [(ngModel)]="Description" placeholder="Please describe with the details what is happening with this order/group of orders"></ion-textarea>
+        </ion-item>
+
+        <!-- <ion-item class="file-up">
+                <ion-input class="text-area" type="file" placeholder="file Input"></ion-input>
+        </ion-item> -->
+
+        <ion-item>
+                <button ion-button full large (click)="createTicket()">Create Ticket</button>
+        </ion-item>
+</ion-content>

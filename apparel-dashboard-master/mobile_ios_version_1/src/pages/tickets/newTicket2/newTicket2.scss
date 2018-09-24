@@ -1,0 +1,45 @@
+page-newTicket2 {
+
+    .header-txt{
+        text-align: center;
+    }
+
+    .header-btn{
+        text-align: center;
+    }
+
+    .urg-btn{
+        margin-left: -1%;
+    }
+
+    .header div {
+        background: #168bf1 !important;
+    }
+    
+    .badge{
+        background-color: grey;
+        border-radius: 3px;
+    }
+
+    .badg-item{
+        margin-top: -3%
+    }
+    
+    .text-item{
+        height: 57%;
+    }
+
+    .text-area{
+        border: solid;
+        border-width: 1px;
+    }
+
+    textarea.text-input {
+       height:95%
+    }
+
+    .file-up{
+        margin-top: 2%
+    }
+
+}

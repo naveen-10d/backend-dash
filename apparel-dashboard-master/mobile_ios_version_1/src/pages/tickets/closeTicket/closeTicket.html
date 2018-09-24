@@ -1,0 +1,38 @@
+<ion-header>
+    <ion-navbar class="header">
+        <button ion-button menuToggle>
+            <ion-icon class="menu-icon" name="menu"></ion-icon>
+        </button>
+        <div class="logo-container">
+            <span class="header-title">STAHLS</span>
+            <!-- <ion-icon class="noti-icon" name="notifications"></ion-icon> -->
+        </div>
+    </ion-navbar>
+</ion-header>
+<ion-content>
+<ion-grid>
+    <ion-row padding>
+        <ion-col>
+            <div>
+                <h5>Ticket ID</h5>
+            </div>
+            <div>
+                <h3>2341234</h3>
+            </div>
+        </ion-col>
+        <ion-col end>
+            <button ion-button float-right>In progress</button>
+        </ion-col>
+    </ion-row>
+    <ion-row padding>
+         <h4><b>You are closing this ticket because:</b></h4>
+    </ion-row>
+    <ion-row>
+        <ion-item  >
+            <ion-list *ngFor="let close of Reason"  (click)="closeTicketOption(close)">
+                <button ion-button full >{{close.Reason}}</button>                
+            </ion-list>
+        </ion-item>
+    </ion-row>
+</ion-grid>
+</ion-content>

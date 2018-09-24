@@ -1,0 +1,151 @@
+<ion-header>
+  <ion-navbar class="header" hideBackButton>
+    <button ion-button menuToggle>
+      <ion-icon class="menu-icon" name="menu"></ion-icon>
+      <!-- <page-navbar></page-navbar> -->
+    </button>
+    <div class="logo-container">
+      <!-- <img height="40" class="nav-logo" src="assets/imgs/stahls.png"> -->
+      <span class="header-title">STAHLS</span>
+      <!-- <button ion-button> -->
+      <!-- <ion-icon class="noti-icon" name="notifications"></ion-icon> -->
+      <!-- </button>   -->
+    </div>
+
+
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="page-con">
+  <ion-card>
+    <ion-card-content class="dashCard">
+      <ion-card-title class="card-title1">
+        <span>ORDERS RECEIVED</span>
+      </ion-card-title>
+      <ion-grid>
+        <ion-row >
+          <ion-list class="title1">
+            <br />
+            <span *ngIf="orderreceivedtoday !==0">
+              <span>Order Received: &nbsp;{{orderReceivedPercent}}%</span>
+              <div>
+                <span>{{orderreceivedtoday}}</span>
+                <br />
+                <span>Orders Received Today</span>
+              </div>
+            </span>
+            <div *ngIf="orderreceivedtoday ===0">No data for Today!</div>
+          </ion-list>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+
+
+  <ion-card>
+    <ion-card-content class="dashCard">
+      <ion-card-title class="card-title1">
+        <span>ORDERS SHIPPED</span>
+      </ion-card-title>
+      <ion-grid>
+        <ion-row>
+          <ion-list class="title1">
+            <br />
+            <span *ngIf="orderShippedToday !==0">
+              <span>Order shipped: &nbsp;{{orderShippedPercent}}%</span>
+              <div>
+                <span>{{orderShippedToday}}</span>
+                <br />
+                <span>Orders Shipped Today</span>
+              </div>
+            </span>
+            <div *ngIf="orderShippedToday ===0">No data for Today!</div>
+          </ion-list>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-content class="dashCard">
+      <ion-card-title class="card-title1">
+        <span>ON-TIME %</span>
+      </ion-card-title>
+      <ion-grid>
+        <ion-row>
+          <ion-list class="title1">
+            <br />
+            <span *ngIf="orderOnTimeToday !==0">
+              <span>On-Time:&nbsp;{{orderOnTimePercent}}%</span>
+              <div>
+                <span>{{orderOnTimeToday}}</span>
+                <span>Orders OnTime</span>
+              </div>
+            </span>
+            <div *ngIf="orderOnTimeToday ===0">No data for Today!</div>
+          </ion-list>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- </ion-col> -->
+  <!-- <ion-col col-lg-4>
+            <p> ORDERS SHIPPED</p>
+            <ion-list>
+              <span *ngIf="orderShippedToday !==0">
+                <span>{{orderShippedPercent}}%</span>
+                <div>
+                  <span>{{orderShippedToday}}</span>
+                  <br/>
+                  <span>Orders Shipped Today</span>
+                </div>
+              </span>
+              <div *ngIf="orderShippedToday ===0">No data for Today!</div>
+            </ion-list>
+          </ion-col>
+          <ion-col col-lg-2>
+            <ion-list>
+              <p> ON-TIME %</p>
+              <span *ngIf="orderOnTimeToday !==0">
+                <span>{{orderOnTimePercent}}%</span>
+                <div >
+                  <span>{{orderOnTimeToday}}</span>
+                  <span>Orders OnTime</span>
+                </div>
+              </span>
+              <div *ngIf="orderOnTimeToday ===0">No data for Today!</div>
+            </ion-list>
+          </ion-col> -->
+  <!-- </ion-grid> -->
+
+  <!-- <ion-card>
+    <ion-card-content class="dashCard">
+      <ion-card-title class="card-title1">
+        <span>Purchase Order</span>
+      </ion-card-title>
+    </ion-card-content>
+  </ion-card> -->
+
+  <ion-card>
+    <ion-card-content class="dashCard">
+      <ion-card-title class="card-title1">
+        <span>Priority Tickets</span>
+      </ion-card-title>
+      <ion-list >
+        <div class="div-badge b2" style="margin-left:7em">{{ticketlength}}</div>
+        <!-- <div class="div-badge b2"> 2 </div>
+          <div class="div-badge b3"> 3 </div>
+          <div class="div-badge b4"> 4 </div> -->
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- <ion-card>
+    <ion-card-content class="dashCard">
+      <ion-card-title class="card-title1">
+        <span>Inventory</span>
+      </ion-card-title>
+    </ion-card-content>
+  </ion-card> -->
+</ion-content>

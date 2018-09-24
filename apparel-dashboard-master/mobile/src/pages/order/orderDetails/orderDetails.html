@@ -1,0 +1,161 @@
+<ion-header>
+    <ion-navbar class="header" hideBackButton>
+        <button ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+        <div class="logo-container">
+            <span class="header-title">STAHLS</span>
+            <ion-icon class="noti-icon" name="notifications"></ion-icon>
+        </div>
+    </ion-navbar>
+</ion-header>
+
+<ion-content>
+    <ion-card>
+        <ion-card-content class="">
+            <span class="orderid">23456776</span>
+            <ion-badge item-end>In progress</ion-badge>
+            <div class="details-box">
+                <span>Location: DFC</span>
+                <br/>
+                <span>PO: 43567679</span>
+                <br/>
+                <span>Date: 09/04/2017</span>
+                <br/>
+                <span>Ticket: 2</span>
+            </div>
+            <!-- <ion-item>
+                Tracking Info
+            </ion-item> -->
+        </ion-card-content>
+    </ion-card>
+    <ion-item class="title-divider">
+        Tracking Info
+    </ion-item>
+    <ion-card>
+        <ion-card-content class="">
+            <div class="details-box">
+                <span>Location: DFC</span>
+                <span>PO: 43567679</span>
+                <br/>
+                <span>Date: 09/04/2017</span>
+                <span>Ticket: 2</span>
+            </div>
+            <!-- <ion-item>
+                    Tracking Info
+                </ion-item> -->
+        </ion-card-content>
+    </ion-card>
+    <ion-item class="title-divider">
+        Customer
+    </ion-item>
+    <ion-card>
+        <ion-card-content class="">
+            <div class="details-box">
+                <span>Location: DFC</span>
+                <span>PO: 43567679</span>
+                <br/>
+                <span>Date: 09/04/2017</span>
+                <span>Ticket: 2</span>
+            </div>
+            <!-- <ion-item>
+                            Tracking Info
+                        </ion-item> -->
+        </ion-card-content>
+    </ion-card>
+    <ion-item class="title-divider">
+        Items included in this order
+    </ion-item>
+    <ion-item class="qty-header">
+        <span style="margin-left: 15px;">Qty.</span>
+        <a class="sort-filter" (click)="filterOrder()"> Sort/Filter by</a>
+    </ion-item>
+    <ion-item class="qty-details">
+        <ion-grid>
+            <ion-row>
+                <ion-col col-2 style="font-size: 65px;">
+                    3
+                </ion-col>
+                <ion-col col-10>
+                    Style: TMWK770
+                    <ion-badge class="details-badge" item-end>In progress</ion-badge>
+                    <br/> Color: TNV
+                    <br/> Price: In progress
+                    <br/> Shipping Method: UPS 2 days
+                    <br/> Artwork Status: Waiting for approval
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </ion-item>
+
+    <ion-item class="qty-details">
+        <ion-grid>
+            <ion-row>
+                <ion-col col-2 style="font-size: 65px;">
+                    3
+                </ion-col>
+                <ion-col col-10>
+                    Style: TMWK770
+                    <ion-badge class="details-badge" item-end>In progress</ion-badge>
+                    <br/> Color: TNV
+                    <br/> Price: In progress
+                    <br/> Shipping Method: UPS 2 days
+                    <br/> Artwork Status: Waiting for approval
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </ion-item>
+
+    <ion-item class="qty-details">
+        <ion-grid>
+            <ion-row>
+                <ion-col col-2 style="font-size: 65px;">
+                    3
+                </ion-col>
+                <ion-col col-10>
+                    Style: TMWK770
+                    <ion-badge class="details-badge" item-end>In progress</ion-badge>
+                    <br/> Color: TNV
+                    <br/> Price: In progress
+                    <br/> Shipping Method: UPS 2 days
+                    <br/> Artwork Status: Waiting for approval
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </ion-item>
+
+    <ion-item class="qty-details">
+        <ion-grid>
+            <ion-row>
+                <ion-col col-2 style="font-size: 65px;">
+                    3
+                </ion-col>
+                <ion-col col-10>
+                    Style: TMWK770
+                    <ion-badge class="details-badge" item-end>In progress</ion-badge>
+                    <br/> Color: TNV
+                    <br/> Price: In progress
+                    <br/> Shipping Method: UPS 2 days
+                    <br/> Artwork Status: Waiting for approval
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </ion-item>
+    <ion-item class="title-divider">
+        Ticket associated with this order
+    </ion-item>
+    <ion-item>
+        <button class="delayed">
+            <span> 04/04/2018 / Solved - Jhon Doe</span>
+        </button>
+        <br/>
+        <br/>
+        <button class="pending">
+            <span>04/04/2018 / Inprogress - Jhon Do</span>
+        </button>
+        <br/>
+        <br/>
+
+        <button ion-button class="btn-filter" outline>New Ticket</button>
+    </ion-item>
+</ion-content>
